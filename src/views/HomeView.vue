@@ -1,9 +1,13 @@
-<script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+<script lang="ts">
+import DigitalClock from '@/components/DigitalClock.vue';
+export default{
+    components:{
+        DigitalClock
+    }
+}
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+    <h1>clock</h1>
+    <DigitalClock/>
 </template>

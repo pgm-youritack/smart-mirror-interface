@@ -1,0 +1,56 @@
+@charset 'utf-8';
+@import 'base/_index';
+
+body{
+  background-color: black;
+}
+h1{
+  color: white;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    flex-direction: column;
+  }
+  .hour, .min, .secs {
+    font-size: 8em;
+  }
+  strong {
+    color: blue;
+  }
+  p {
+    font-family: 'Lucida Sans', sans-serif;
+    font-size: 20px;
+  }
+  .clock-border {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    height: 200px;
+    background: linear-gradient(to right, grey, rgb(82, 76, 76));
+  }
+  .clock-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    height: 150px;
+    background: black;
+    border-radius: 20px;
+    color: red;
+  }
+  .dots {
+    font-size: 70px;
+  }
+  .red {
+    color: red;
+  }
+  .yellow {
+    color: yellow;
+  }
+  .green {
+    color: green;
+  }
