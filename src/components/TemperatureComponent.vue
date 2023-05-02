@@ -5,20 +5,26 @@
 
 <script lang="ts">
 import axios from 'axios';
-export default{
-    data(){
-        return{
-            info:'test'
+export default {
+    data() {
+        return {
+            info: 'test',
+            test: null
         }
     },
-    mounted(){
+    mounted() {
         axios
-        .get(`https://api.openweathermap.org/data/2.5/weather?q=ghent&appid=${import.meta.env.VITE_WEATHER_KEY}&units=metric`)
-        .then((response)=>{
-            const {data} = response
-            var tempValue = data['main']['temp']
-            this.info = tempValue
-        })
+            .get(`https://api.openweathermap.org/data/2.5/weather?q=ghent&appid=${import.meta.env.VITE_WEATHER_KEY}&units=metric`)
+            .then((response) => {
+                const { data } = response
+                var tempValue = data['main']['temp']
+                this.info = tempValue
+            });
+        fetch('https://api.ipify.org/?format=json')
+            .then(x => x.json())
+            .then(({ ip }) => {
+                this.test = ip;
+            });
     }
 }
-    </script>
+</script>

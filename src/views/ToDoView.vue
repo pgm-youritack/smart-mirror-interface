@@ -1,5 +1,5 @@
 <template>
-  <TitleComponent title="Home" />
+  <TitleComponent title="To Do" />
   <h1>Home</h1>
   <NavComponent />
 </template>

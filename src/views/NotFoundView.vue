@@ -1,0 +1,15 @@
+<template>
+  <TitleComponent title="404 not found" />
+  <h1>what are you looking for?</h1>
+  {# <img src="@/assets/images/whatyoulooking.gif" /> #}
+</template>
+
+<script lang="ts">
+import TitleComponent from '@/components/titleComponent.vue'
+
+export default {
+  components: {
+    TitleComponent
+  }
+}
+</script>
