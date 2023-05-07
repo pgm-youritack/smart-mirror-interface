@@ -3,8 +3,7 @@ import WeatherVue from '@/views/WeatherView.vue'
 import HomeView from '../views/HomeView.vue'
 import TodoView from '../views/ToDoView.vue'
 import newsView from '../views/NewsView.vue'
-import SpotifyMusicView from '../views/Music/SpotifyMusicView.vue'
-import LocalMusicView from '../views/Music/LocalMusicView.vue'
+import localmusicView from '../views/MusicView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
 
 const router = createRouter({
@@ -27,27 +26,16 @@ const router = createRouter({
       component: WeatherVue
     },
     {
+      path: '/music',
+      name: 'music',
+      component: localmusicView
+    },
+    {
       path: '/News',
       name: 'News',
       component: newsView
     },
-    {
-      path: '/Music',
-      name: 'Music',
-      redirect: 'Music/Local',
-      children: [
-        {
-          name: 'Spotify',
-          path: 'Spotify',
-          component: SpotifyMusicView
-        },
-        {
-          name: 'Local',
-          path: 'Local',
-          component: LocalMusicView
-        }
-      ]
-    },
+
     {
       path: '/404',
       name: 'NotFound',
