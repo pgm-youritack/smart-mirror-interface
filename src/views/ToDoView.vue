@@ -5,8 +5,8 @@
 </template>
 
 <script lang="ts">
-import NavComponent from '@/components/NavComponent.vue'
-import TitleComponent from '@/components/titleComponent.vue'
+import NavComponent from '@/components/Nav.Component.vue'
+import TitleComponent from '@/components/title.Component.vue'
 
 export default {
   components: {

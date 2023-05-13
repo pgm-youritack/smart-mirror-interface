@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import TitleComponent from '@/components/titleComponent.vue'
+import TitleComponent from '@/components/title.Component.vue'
 
 export default {
   components: {

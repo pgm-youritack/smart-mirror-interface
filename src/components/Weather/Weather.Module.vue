@@ -1,28 +1,34 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <h1>Weather</h1>
   <WeatherIcon :WeatherIcon="icon" />
+  <WeatherTypeComponent :WeatherType="description" />
   <TemperatureComponent :Temperature="temperature" />
+  <HumidityComponent :Humidity="humid" />
   <WindWeatheRComponent :Wind="wind" />
 </template>
 
 <script lang="ts">
-import { GetIcon, getTemp, getWind } from '../../services/Weather'
+import { getDescription, GetHumid, GetIcon, getTemp, getWind } from '../../services/Weather'
 import WeatherIcon from './WeatherIcon.Component.vue'
 import TemperatureComponent from './Temperature.Component.vue'
 import WindWeatheRComponent from './WindWeather.Component.vue'
+import WeatherTypeComponent from './WeatherType.Component.vue'
+import HumidityComponent from './Humidity.Component.vue'
 export default {
   components: {
     WeatherIcon,
     TemperatureComponent,
-    WindWeatheRComponent
+    WindWeatheRComponent,
+    WeatherTypeComponent,
+    HumidityComponent
   },
   data() {
     return {
       temperature: 0,
       wind: 0,
       icon: '',
-      humid: ''
+      humid: 0,
+      description: ''
     }
   },
 
@@ -30,6 +36,8 @@ export default {
     this.temperature = await getTemp()
     this.wind = await getWind()
     this.icon = await GetIcon()
+    this.humid = await GetHumid()
+    this.description = await getDescription()
   }
 }
 </script>

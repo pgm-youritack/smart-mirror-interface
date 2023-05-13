@@ -19,5 +19,10 @@ async function GetHumid() {
   const temperature = await data.main.humidity
   return temperature
 }
+async function getDescription() {
+  const data = await getWeather()
+  const Weather = await data.weather[0].description
+  return Weather
+}
 
-export { getTemp, getWind, GetIcon, GetHumid }
+export { getTemp, getWind, GetIcon, GetHumid, getDescription }

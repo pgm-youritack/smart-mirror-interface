@@ -7,12 +7,13 @@ async function getArticles() {
 }
 async function GetArticle() {
   const data = await getArticles()
-  const articles = data[Math.floor(Math.random() * data.length)]
-  return articles
+  const article = data[Math.floor(Math.random() * data.length)]
+  console.log(article)
+  return article
 }
 async function GetTitle() {
   const data = await GetArticle()
   const title = data.title
   return title
 }
-export { GetTitle }
+export { GetArticle }

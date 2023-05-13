@@ -1,10 +1,10 @@
 <template>
-  <h1>{{ WeatherType }}</h1>
+  <img :src="Image" />
 </template>
 <script lang="ts">
 export default {
   props: {
-    WeatherType: String
+    Image: String
   }
 }
 </script>

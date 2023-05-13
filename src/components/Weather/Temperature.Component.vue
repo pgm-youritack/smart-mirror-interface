@@ -1,5 +1,8 @@
 <template>
-  <h1>{{ Temperature }}</h1>
+  <div class="Weather__item">
+    <h1 class="Weather__description">Temp</h1>
+    <h1 class="Weather__Value">{{ Temperature }}C&#176;</h1>
+  </div>
 </template>
 <script lang="ts">
 export default {

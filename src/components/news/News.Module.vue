@@ -1,24 +1,37 @@
 <template>
-  <h1>hello</h1>
-  <TitleComponent :Title="title" />
+  <div class="article">
+    <ImageComponent :Image="Image" />
+    <TitleComponent :Title="Title" />
+    <descriptionComponent :Description="Description" />
+  </div>
 </template>
 
 <script lang="ts">
-import { GetTitle } from '../../services/News'
+import { GetArticle } from '../../services/News'
 import TitleComponent from './Title.Component.vue'
+import ImageComponent from './Image.module.vue'
+import descriptionComponent from './description.component.vue'
 
 export default {
   components: {
-    TitleComponent
+    TitleComponent,
+    ImageComponent,
+    descriptionComponent
   },
   data() {
     return {
-      title: ''
+      article: JSON,
+      Title: '',
+      Image: '',
+      Description: ''
     }
   },
 
   async mounted() {
-    this.title = await GetTitle()
+    this.article = await GetArticle()
+    this.Title = (this.article as any).title
+    this.Image = (this.article as any).image_url
+    this.Description = (this.article as any).description
   }
 }
 </script>

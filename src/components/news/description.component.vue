@@ -1,10 +1,10 @@
 <template>
-  <h1>{{ WeatherType }}</h1>
+  <h3>{{ Description }}</h3>
 </template>
 <script lang="ts">
 export default {
   props: {
-    WeatherType: String
+    Description: String
   }
 }
 </script>
