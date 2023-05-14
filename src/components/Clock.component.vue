@@ -1,23 +1,24 @@
 <template>
-  <h1>{{ Textclock }}</h1>
+  <h1 class="clock">{{ time }}</h1>
 </template>
 
 <script lang="ts">
 export default {
   data() {
     return {
-      Textclock: '',
-      Clock: new Date(),
-      M: 0,
-      H: 0
+      interval: 0,
+      time: ''
     }
   },
-  async mounted() {
-    window.setInterval(() => {
-      this.H = this.Clock.getHours()
-      this.M = this.Clock.getMinutes()
-      this.Textclock = this.H + ':' + this.M
-    }, 1000)
+  created() {
+    this.interval = setInterval(() => {
+      // Concise way to format time according to system locale.
+      // In my case this returns "3:48:00 am"
+      this.time = Intl.DateTimeFormat('en-GB', {
+        hour: 'numeric',
+        minute: 'numeric'
+      }).format()
+    }, 1)
   }
 }
 </script>

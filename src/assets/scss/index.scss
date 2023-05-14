@@ -1,6 +1,7 @@
 @charset 'utf-8';
 @import 'base/_index';
-
+@import 'layout/_index';
+@import 'components/_index';
 body {
   background-color: black;
 }

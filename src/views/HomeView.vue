@@ -1,6 +1,5 @@
 <template>
   <TitleComponent title="Home" />
-  <h1>Home</h1>
   <ClockComponent />
   <NavComponent />
 </template>

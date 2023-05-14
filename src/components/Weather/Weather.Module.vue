@@ -1,10 +1,12 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <WeatherIcon :WeatherIcon="icon" />
-  <WeatherTypeComponent :WeatherType="description" />
-  <TemperatureComponent :Temperature="temperature" />
-  <HumidityComponent :Humidity="humid" />
-  <WindWeatheRComponent :Wind="wind" />
+  <div class="weather">
+    <WeatherIcon :WeatherIcon="icon" />
+    <WeatherTypeComponent :WeatherType="description" />
+    <TemperatureComponent :Temperature="temperature" />
+    <HumidityComponent :Humidity="humid" />
+    <WindWeatheRComponent :Wind="wind" />
+  </div>
 </template>
 
 <script lang="ts">

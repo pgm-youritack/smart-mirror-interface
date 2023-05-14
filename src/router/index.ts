@@ -45,7 +45,8 @@ const router = createRouter({
       path: '/:catchAll(.*)',
       redirect: '404'
     }
-  ]
+  ],
+  linkActiveClass: 'selected'
 })
 
 export default router

@@ -1,0 +1,11 @@
+.news {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  align-items: center;
+  text-align: left;
+  font-size: 15px;
+  .news__image {
+    width: 100%;
+  }
+}
