@@ -54,3 +54,21 @@ a {
   font-weight: bold;
   font-style: normal;
 }
+input {
+  font-family: 'PT Sans';
+  font-weight: bold;
+  font-style: normal;
+  font-size: 20px;
+}
+input::placeholder {
+  font-family: 'PT Sans';
+  font-weight: bold;
+  font-style: normal;
+  font-size: 20px;
+}
+select {
+  font-family: 'PT Sans';
+  font-weight: bold;
+  font-style: normal;
+  font-size: 20px;
+}

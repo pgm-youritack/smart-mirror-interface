@@ -1,6 +1,5 @@
 <template>
   <TitleComponent title="Local Music" />
-  <h1>Local Music</h1>
   <NavComponent />
 </template>
 
