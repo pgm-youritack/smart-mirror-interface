@@ -37,7 +37,7 @@ export default {
   },
   mounted() {
     if (!isMobile) {
-      //   this.$router.push('404')
+      this.$router.push('404')
     }
   }
 }
