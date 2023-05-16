@@ -7,13 +7,17 @@
       <RouterLink class="navigation__item" to="/Music">Music</RouterLink>
       <RouterLink class="navigation__item" to="/News">News</RouterLink>
     </nav>
+    <QrcodeVue value="hello" :size="50" level="L" render-as="svg" class="qrCode" />
   </div>
 </template>
 
 <script lang="ts">
 import anime from 'animejs/lib/anime.es.js'
-
+import QrcodeVue from 'qrcode.vue'
 export default {
+  components: {
+    QrcodeVue
+  },
   mounted() {
     anime({
       targets: '.navigation__item',
@@ -27,12 +31,6 @@ export default {
       duration: 200,
       easing: 'linear'
     })
-
-    fetch('https://api.ipify.org?format=json')
-      .then((response) => response.json())
-      .then((response) => {
-        console.log(response.ip)
-      })
   }
 }
 </script>

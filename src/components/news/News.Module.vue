@@ -3,7 +3,7 @@
     <ImageComponent :Image="Image" />
     <TitleComponent :Title="Title" />
     <descriptionComponent :Description="Description" />
-    <QrcodeVue :value="Link" :size="200" level="H" render-as="svg" />
+    <QrcodeVue :value="Link" :size="200" level="H" render-as="svg" class="qrCode" />
   </div>
 </template>
 
