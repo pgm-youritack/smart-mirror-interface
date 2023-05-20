@@ -4,7 +4,7 @@
 <script lang="ts">
 export default {
   props: {
-    Title: String
+    Title: Text
   }
 }
 </script>

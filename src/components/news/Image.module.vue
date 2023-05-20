@@ -4,7 +4,7 @@
 <script lang="ts">
 export default {
   props: {
-    Image: String
+    Image: Text
   }
 }
 </script>

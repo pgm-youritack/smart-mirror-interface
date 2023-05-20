@@ -7,18 +7,26 @@
       <RouterLink class="navigation__item" to="/Music">Music</RouterLink>
       <RouterLink class="navigation__item" to="/News">News</RouterLink>
     </nav>
-    <QrcodeVue value="hello" :size="50" level="L" render-as="svg" class="qrCode" />
+    <QrcodeVue
+      value="192.168.1.54:5173/setup"
+      :size="50"
+      level="L"
+      render-as="svg"
+      class="qrCode"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import anime from 'animejs/lib/anime.es.js'
+import { Navigation } from '@/services/VoiceCommands'
 import QrcodeVue from 'qrcode.vue'
 export default {
   components: {
     QrcodeVue
   },
   mounted() {
+    Navigation()
     anime({
       targets: '.navigation__item',
       translateX: 0,
