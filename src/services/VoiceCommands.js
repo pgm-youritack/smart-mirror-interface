@@ -1,5 +1,5 @@
 import artyom from 'artyom.js'
-
+import Router from '../router'
 const voice = new artyom()
 
 voice.initialize({
@@ -13,21 +13,27 @@ voice.initialize({
 function Navigation() {
   voice.addCommands([
     {
-      indexes: ['Hello'],
+      indexes: ['show Weather '],
       action: function () {
-        alert('Hello, how are you ?')
+        Router.push('/Weather')
       }
     },
     {
-      indexes: ['Good night'],
+      indexes: ['show todo', 'show to do'],
       action: function () {
-        alert('Hello, how are you ?')
+        Router.push('/Todo')
       }
     },
     {
-      indexes: ['Good morning'],
+      indexes: ['show music'],
       action: function () {
-        alert('Hello, how are you ?')
+        Router.push('/Music')
+      }
+    },
+    {
+      indexes: ['show news'],
+      action: function () {
+        Router.push('/News')
       }
     }
   ])
