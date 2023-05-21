@@ -19,6 +19,7 @@
 import NavComponent from '@/components/Nav.Component.vue'
 import TitleComponent from '@/components/title.Component.vue'
 import ClockComponent from '@/components/Clock.component.vue'
+import { NewsArticleNavigation } from '@/services/VoiceCommands'
 import { getArticles } from '@/services/News'
 export default {
   components: {
@@ -33,7 +34,7 @@ export default {
   },
   async mounted() {
     this.articles = await getArticles()
-    this.$()
+    NewsArticleNavigation()
   }
 }
 </script>
