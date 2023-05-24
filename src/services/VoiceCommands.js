@@ -1,6 +1,6 @@
 import artyom from 'artyom.js'
 import Router from '../router'
-import getArticles from '@/services/News'
+// import getArticles from '@/services/News'
 const voice = new artyom()
 
 voice.initialize({
@@ -40,15 +40,4 @@ function Navigation() {
   ])
 }
 
-function NewsArticleNavigation() {
-  voice.addCommands({
-    indexes: ['show article *'],
-    action: async function (i, wildcard) {
-      const articles = await getArticles()
-      const title = articles[wildcard]
-      Router.push(`News/${title}`)
-    }
-  })
-}
-
-export { Navigation, NewsArticleNavigation }
+export { Navigation }

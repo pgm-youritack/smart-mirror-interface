@@ -3,7 +3,7 @@
   <NavComponent />
 </template>
 
-<script lang="ts">
+<script>
 import NavComponent from '@/components/Nav.Component.vue'
 import TitleComponent from '@/components/title.Component.vue'
 export default {

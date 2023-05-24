@@ -4,7 +4,7 @@
     <h1 class="weather__Value">{{ Temperature }}C&#176;</h1>
   </div>
 </template>
-<script lang="ts">
+<script>
 export default {
   props: {
     Temperature: Number

@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import TitleComponent from '@/components/title.Component.vue'
 import ClockComponent from '@/components/Clock.component.vue'
 import { isMobile } from 'mobile-device-detect'

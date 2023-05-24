@@ -4,7 +4,7 @@
     <h1 class="weather__Value">{{ Wind }} km/h</h1>
   </div>
 </template>
-<script lang="ts">
+<script>
 export default {
   props: {
     Wind: Number

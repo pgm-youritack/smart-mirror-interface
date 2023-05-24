@@ -4,7 +4,7 @@
   {# <img src="@/assets/images/whatyoulooking.gif" /> #}
 </template>
 
-<script lang="ts">
+<script>
 import TitleComponent from '@/components/title.Component.vue'
 
 export default {

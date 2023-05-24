@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { getDescription, GetHumid, GetIcon, getTemp, getWind } from '../../services/Weather'
 import WeatherIcon from './WeatherIcon.Component.vue'
 import TemperatureComponent from './Temperature.Component.vue'

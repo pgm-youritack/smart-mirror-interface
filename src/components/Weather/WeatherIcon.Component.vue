@@ -1,7 +1,7 @@
 <template>
   <img class="weather__image" :src="WeatherIcon" />
 </template>
-<script lang="ts">
+<script>
 export default {
   props: {
     WeatherIcon: String

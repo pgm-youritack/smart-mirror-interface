@@ -4,7 +4,7 @@
     <h1 class="weather__Value">{{ Humidity }}%</h1>
   </div>
 </template>
-<script lang="ts">
+<script>
 export default {
   props: {
     Humidity: Number

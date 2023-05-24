@@ -1,7 +1,7 @@
 <template>
   <h3>{{ Description }}</h3>
 </template>
-<script lang="ts">
+<script>
 export default {
   props: {
     Description: Text

@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import TitleComponent from './Title.Component.vue'
 import ImageComponent from './Image.module.vue'
 import descriptionComponent from './description.component.vue'

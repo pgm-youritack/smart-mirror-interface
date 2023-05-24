@@ -6,7 +6,7 @@ async function getArticles() {
   console.log(articles)
   return articles
 }
-async function GetArticle(title: string) {
+async function GetArticle(title) {
   const data = await getArticles()
   const article = data.filter((item) => {
     return item.title === title

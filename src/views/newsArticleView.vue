@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import NavComponent from '@/components/Nav.Component.vue'
 import TitleComponent from '@/components/title.Component.vue'
 import NewsModule from '@/components/news/News.Module.vue'

@@ -1,7 +1,7 @@
 <template>
   <img class="news__image" :src="Image" />
 </template>
-<script lang="ts">
+<script>
 export default {
   props: {
     Image: Text

@@ -4,7 +4,7 @@
   <div class="viewer"><NavComponent /> <WeatherModule /></div>
 </template>
 
-<script lang="ts">
+<script>
 import NavComponent from '@/components/Nav.Component.vue'
 import titleComponent from '@/components/title.Component.vue'
 import WeatherModule from '@/components/Weather/Weather.Module.vue'

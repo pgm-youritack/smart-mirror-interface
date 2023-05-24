@@ -1,7 +1,7 @@
 <template>
   <h1>{{ WeatherType }}</h1>
 </template>
-<script lang="ts">
+<script>
 export default {
   props: {
     WeatherType: String

@@ -17,7 +17,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import anime from 'animejs/lib/anime.es.js'
 import { Navigation } from '@/services/VoiceCommands'
 import QrcodeVue from 'qrcode.vue'
@@ -27,12 +27,6 @@ export default {
   },
   mounted() {
     Navigation()
-    anime({
-      targets: '.navigation__item',
-      translateX: 0,
-      duration: 200,
-      easing: 'linear'
-    })
     anime({
       targets: '.selected',
       translateX: 50,
