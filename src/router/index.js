@@ -7,6 +7,7 @@ import localmusicView from '@/views/MusicView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import SetupView from '@/views/SetupView.vue'
 import newsArticleVIew from '@/views/newsArticleView.vue'
+import loginView from '@/views/LoginView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -46,6 +47,11 @@ const router = createRouter({
       path: '/News/:name',
       name: 'Article',
       component: newsArticleVIew
+    },
+    {
+      path: '/Login',
+      name: 'login',
+      component: loginView
     },
     {
       path: '/404',

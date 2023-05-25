@@ -7,12 +7,12 @@
     </div>
     <form class="setup__form">
       <input type="text" placeholder="Name" class="setup__form-input" name="Username" />
-      <input
-        type="text"
-        placeholder="Country (short code)"
-        class="setup__form-input"
-        name="Country"
-      />
+      <select name="Hour_clock" class="setup__form-select">
+        <option selected="true" disabled="disabled">Select Country code</option>
+        <option v-for="country in countrycodes" v-bind:value="country.code">
+          {{ country.name }}({{ country.code }})
+        </option>
+      </select>
       <select name="Hour_clock" class="setup__form-select">
         <option value="12">12 Hours</option>
         <option value="24">24 Hours</option>
@@ -29,11 +29,17 @@
 <script>
 import TitleComponent from '@/components/title.Component.vue'
 import ClockComponent from '@/components/Clock.component.vue'
+import json from '@/externalData/CountryCodes.json'
 import { isMobile } from 'mobile-device-detect'
 export default {
   components: {
     TitleComponent,
     ClockComponent
+  },
+  data() {
+    return {
+      countrycodes: json
+    }
   },
   mounted() {
     if (!isMobile) {
