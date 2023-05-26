@@ -5,6 +5,9 @@
 export default {
   props: {
     Description: Text
+  },
+  mounted() {
+    console.log(this.Description)
   }
 }
 </script>

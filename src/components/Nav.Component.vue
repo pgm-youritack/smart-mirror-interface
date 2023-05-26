@@ -8,7 +8,7 @@
       <RouterLink class="navigation__item" to="/News">News</RouterLink>
     </nav>
     <QrcodeVue
-      value="http://192.168.1.54:5173/setup"
+      value="http://192.168.1.54:5173/Login"
       :size="50"
       level="L"
       render-as="svg"
