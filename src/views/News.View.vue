@@ -6,7 +6,9 @@
     <ul class="scroll-container">
       <li v-for="(article, index) in articles" class="article">
         {{ index + 1 }}:
-        <a v-bind:href="/News/ + article.title" class="article__link">{{ article.title }}</a>
+        <a v-bind:href="/News/ + article.title.replace('.', '$')" class="article__link">{{
+          article.title
+        }}</a>
       </li>
     </ul>
   </div>

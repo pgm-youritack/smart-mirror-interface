@@ -30,7 +30,7 @@ export default {
     }
   },
   async mounted() {
-    const urlParam = this.$route.params.name.toString()
+    const urlParam = this.$route.params.name.toString().replace('$', '.')
     this.article = await GetArticle(urlParam)
     this.title = this.article[0].title.toString()
     this.image = this.article[0].image_url.toString()

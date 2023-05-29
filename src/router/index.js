@@ -6,9 +6,10 @@ import newsView from '@/views/News.View.vue'
 import localmusicView from '@/views/Music.View.vue'
 import NotFoundView from '@/views/NotFound.View.vue'
 import SetupView from '@/views/Setup.View.vue'
-import newsArticleVIew from '@/views/newsArticle.View.vue'
+import newsArticleVIew from '@/views/NewsArticle.View.vue'
 import loginView from '@/views/Login.View.vue'
 import RegisterView from '@/views/Register.View.vue'
+import SuccessView from '@/views/Success.View.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -63,6 +64,11 @@ const router = createRouter({
       path: '/404',
       name: 'NotFound',
       component: NotFoundView
+    },
+    {
+      path: '/success',
+      name: 'succes',
+      component: SuccessView
     },
     {
       path: '/:catchAll(.*)',

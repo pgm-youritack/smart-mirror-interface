@@ -1,5 +1,5 @@
 import artyom from 'artyom.js'
-import Router from '../router'
+import Router from '@/router'
 // import getArticles from '@/services/News'
 const voice = new artyom()
 
@@ -11,7 +11,7 @@ voice.initialize({
   mode: 'normal'
 })
 
-function Navigation() {
+const Navigation = () => {
   voice.addCommands([
     {
       indexes: ['show Weather '],

@@ -5,15 +5,15 @@
       <h1>Register</h1>
       <ClockComponent />
     </div>
-    <form class="setup__form">
-      <input type="text" placeholder="Username" class="setup__form-input" name="Username" />
+    <form class="setup__form" @submit.prevent="submit">
+      <input type="email" placeholder="E-mail" class="setup__form-input" v-model="form.email" />
       <input
-        type="text"
-        placeholder="DisplayName (used as show name)"
+        type="Password"
+        placeholder="Password"
         class="setup__form-input"
-        name="Display"
+        name="Password"
+        v-model="form.password"
       />
-      <input type="Password" placeholder="Password" class="setup__form-input" name="Password" />
 
       <input type="submit" value="Register" class="setup__form-input" />
     </form>
@@ -24,14 +24,29 @@
 import TitleComponent from '@/components/title.Component.vue'
 import ClockComponent from '@/components/Clock.component.vue'
 import { isMobile } from 'mobile-device-detect'
+import { Register } from '@/services/Supabase'
 export default {
   components: {
     TitleComponent,
     ClockComponent
   },
+  data() {
+    return {
+      form: {
+        email: '',
+        password: ''
+      }
+    }
+  },
   mounted() {
     if (!isMobile) {
       this.$router.push('404')
+    }
+  },
+  methods: {
+    async submit() {
+      this.$emit('submit', this.form)
+      Register(this.form)
     }
   }
 }
