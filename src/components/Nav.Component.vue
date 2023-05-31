@@ -19,14 +19,12 @@
 
 <script>
 import anime from 'animejs/lib/anime.es.js'
-import { Navigation } from '@/services/VoiceCommands'
 import QrcodeVue from 'qrcode.vue'
 export default {
   components: {
     QrcodeVue
   },
   mounted() {
-    Navigation()
     anime({
       targets: '.selected',
       translateX: 50,

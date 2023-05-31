@@ -5,19 +5,19 @@
       <h1>Setup</h1>
       <ClockComponent />
     </div>
-    <form class="setup__form">
-      <input type="text" placeholder="Name" class="setup__form-input" name="Username" />
-      <select name="Hour_clock" class="setup__form-select">
+    <form class="setup__form" @submit.prevent="submit">
+      <input type="text" placeholder="Name" class="setup__form-input" v-model="form.displayname" />
+      <select v-model="form.countryCode" class="setup__form-select">
         <option selected="true" disabled="disabled">Select Country code</option>
         <option v-for="country in countrycodes" v-bind:value="country.code">
           {{ country.name }}({{ country.code }})
         </option>
       </select>
-      <select name="Hour_clock" class="setup__form-select">
-        <option value="12">12 Hours</option>
-        <option value="24">24 Hours</option>
+      <select v-model="form.timezone" class="setup__form-select" placeholder="Select country">
+        <option selected="true">12 Hours</option>
+        <option>24 Hours</option>
       </select>
-      <select name="Measurement" class="setup__form-select">
+      <select v-model="form.measurement" class="setup__form-select">
         <option value="Imperial">Imperial</option>
         <option value="Metric">Metric</option>
       </select>
@@ -30,20 +30,34 @@
 import TitleComponent from '@/components/title.Component.vue'
 import ClockComponent from '@/components/Clock.component.vue'
 import json from '@/externalData/CountryCodes.json'
+import { insertUpdateUserData } from '@/services/supabase'
 import { isMobile } from 'mobile-device-detect'
 export default {
   components: {
     TitleComponent,
     ClockComponent
   },
+
   data() {
     return {
-      countrycodes: json
+      countrycodes: json,
+      form: {
+        displayname: '',
+        countryCode: 'Select Country Code',
+        timezone: '',
+        measurement: ''
+      }
     }
   },
   mounted() {
-    if (!isMobile) {
-      this.$router.push('404')
+    // if (!isMobile) {
+    //   this.$router.push('404')
+    // }
+  },
+  methods: {
+    submit() {
+      this.$emit('submit', this.form)
+      insertUpdateUserData(this.form)
     }
   }
 }
