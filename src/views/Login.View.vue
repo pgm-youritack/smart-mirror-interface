@@ -18,11 +18,6 @@
       <RouterLink class="RegisterLink" to="/Register">register (if you are new here)</RouterLink>
     </form>
   </div>
-  <div>
-    <input v-model="messageText" type="text" placeholder="Enter a message" />
-    <button @click="sendMessage">Send Message</button>
-    <ul></ul>
-  </div>
 </template>
 
 <script>
@@ -44,30 +39,10 @@ export default {
     }
   },
   mounted() {
-    this.socket = new WebSocket('ws://localhost:8080')
+    this.socket = new WebSocket('ws://192.168.1.54:8080')
     this.socket.addEventListener('open', () => {
       console.log('connected')
     })
-    this.socket.onmessage = (event) => {
-      console.log(event)
-
-      // Check if the received data is a Blob object
-      if (event.data instanceof Blob) {
-        event.data.text().then((text) => {
-          const message = JSON.parse(text)
-          console.log('Received message:', message)
-          // Perform any necessary actions with the received message
-        })
-      } else {
-        // Handle the case when the data is not a Blob
-        console.log('Received non-Blob message:', event.data)
-      }
-    }
-
-    this.socket.onclose = () => {
-      console.log('WebSocket connection closed')
-      // Handle any necessary actions when the connection is closed
-    }
 
     this.socket.onerror = (error) => {
       console.error('WebSocket error:', error)
@@ -76,12 +51,10 @@ export default {
   },
   methods: {
     async submit() {
-      // this.$emit('submit', this.form)
-      // await Login(this.form)
-    },
-    sendMessage() {
+      this.$emit('submit', this.form)
+      const code = await Login(this.form)
       const message = {
-        text: this.messageText,
+        text: code,
         timestamp: Date.now()
       }
       console.log(message)

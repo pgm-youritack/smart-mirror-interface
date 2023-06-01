@@ -31,6 +31,34 @@ export default {
       duration: 200,
       easing: 'linear'
     })
-  }
+    this.socket = new WebSocket('ws://192.168.1.54:8080')
+    this.socket.addEventListener('open', () => {
+      console.log('connected')
+    })
+    this.socket.onmessage = (event) => {
+      // Check if the received data is a Blob object
+      if (event.data instanceof Blob) {
+        event.data.text().then((text) => {
+          const message = JSON.parse(text)
+
+          document.cookie = `session =${message.text}; path=/`
+        })
+      } else {
+        // Handle the case when the data is not a Blob
+        console.log('Received non-Blob message:', event.data)
+      }
+    }
+
+    this.socket.onclose = () => {
+      console.log('WebSocket connection closed')
+      // Handle any necessary actions when the connection is closed
+    }
+    if (document.cookie.match('session')) {
+      console.log('exist')
+    } else {
+      this.$router.push('/home')
+    }
+  },
+  watch() {}
 }
 </script>

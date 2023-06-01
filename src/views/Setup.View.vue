@@ -50,9 +50,14 @@ export default {
     }
   },
   mounted() {
-    // if (!isMobile) {
-    //   this.$router.push('404')
-    // }
+    if (!isMobile) {
+      this.$router.push('404')
+    }
+    if (document.cookie.match('session')) {
+      console.log('exist')
+    } else {
+      this.$router.push('/login')
+    }
   },
   methods: {
     submit() {

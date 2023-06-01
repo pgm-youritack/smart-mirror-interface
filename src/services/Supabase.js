@@ -17,11 +17,12 @@ const Login = async (form) => {
   if (error) {
     console.log(error)
   } else {
-    document.cookie = `session =${data.session.access_token}; path=/`
+    document.cookie = `session =${data.session.access_token}; path=/; expires=${data.session.expires_in}`
+    Router.push('/setup')
     return data.session.access_token
   }
 }
-const insertUpdateUserData = async (form) => {
+const getUserId = async () => {
   if (
     document.cookie
       .split('; ')
@@ -35,32 +36,38 @@ const insertUpdateUserData = async (form) => {
     const {
       data: { user }
     } = await supabase.auth.getUser(token)
+    return user
+  } else {
+    console.log('didnt find it')
+  }
+}
 
-    if (supabase.from('UserData').select().eq('user_id', user.id)) {
-      const { error } = await supabase
-        .from('UserData')
-        .update({
-          displayname: form.displayname,
-          hours: form.timezone,
-          country_code: form.countryCode,
-          measurements: form.measurement
-        })
-        .eq('user_id', user.id)
-      console.log(error)
-    } else {
-      const { error } = await supabase.from('UserData').insert({
-        user_id: user.id,
+const insertUpdateUserData = async (form) => {
+  const boundGetUserId = getUserId.bind(this)
+  const user = await boundGetUserId()
+  console.log(user)
+  if (supabase.from('UserData').select().eq('user_id', user.id)) {
+    const { error } = await supabase
+      .from('UserData')
+      .update({
         displayname: form.displayname,
         hours: form.timezone,
         country_code: form.countryCode,
         measurements: form.measurement
       })
-      if (error) {
-        console.log(error)
-      }
-    }
+      .eq('user_id', user.id)
+    console.log(error)
   } else {
-    console.log('didnt find it')
+    const { error } = await supabase.from('UserData').insert({
+      user_id: user.id,
+      displayname: form.displayname,
+      hours: form.timezone,
+      country_code: form.countryCode,
+      measurements: form.measurement
+    })
+    if (error) {
+      console.log(error)
+    }
   }
 }
-export { Register, Login, insertUpdateUserData }
+export { Register, Login, insertUpdateUserData, getUserId }
