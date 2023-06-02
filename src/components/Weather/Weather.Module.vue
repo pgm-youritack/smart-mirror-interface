@@ -16,6 +16,7 @@ import TemperatureComponent from './Temperature.Component.vue'
 import WindWeatheRComponent from './WindWeather.Component.vue'
 import WeatherTypeComponent from './WeatherType.Component.vue'
 import HumidityComponent from './Humidity.Component.vue'
+import anime from 'animejs/lib/anime.es'
 export default {
   components: {
     WeatherIcon,
@@ -35,6 +36,14 @@ export default {
   },
 
   async mounted() {
+    anime({
+      targets: '.weather',
+      translateX: [400, 0],
+      duration: 500,
+      opacity: [0, 1],
+      delay: 1500,
+      easing: 'linear'
+    })
     this.temperature = await getTemp()
     this.wind = await getWind()
     this.icon = await GetIcon()

@@ -33,8 +33,13 @@ export default {
     const urlParam = this.$route.params.name.toString().replace('$', '.')
     this.article = await GetArticle(urlParam)
     this.title = this.article[0].title.toString()
-    this.image = this.article[0].image_url.toString()
-    this.url = this.article[0].image_url.toString()
+
+    if (this.article[0].image_url === null) {
+      this.description = null
+    } else {
+      this.image = this.article[0].image_url.toString()
+    }
+    this.url = this.article[0].link.toString()
     if (this.article[0].description === null) {
       this.description = null
     } else {

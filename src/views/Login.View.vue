@@ -54,11 +54,16 @@ export default {
       this.$emit('submit', this.form)
       const code = await Login(this.form)
       const message = {
+        title: 'session',
         text: code,
         timestamp: Date.now()
       }
-      console.log(message)
       this.socket.send(JSON.stringify(message))
+      const message2 = {
+        title: 'reload',
+        timestamp: Date.now()
+      }
+      this.socket.send(JSON.stringify(message2))
     }
   }
 }

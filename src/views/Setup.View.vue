@@ -13,6 +13,7 @@
           {{ country.name }}({{ country.code }})
         </option>
       </select>
+      <input type="text" placeholder="city name" class="setup__form-input" v-model="form.city" />
       <select v-model="form.timezone" class="setup__form-select" placeholder="Select country">
         <option selected="true">12 Hours</option>
         <option>24 Hours</option>
@@ -30,7 +31,7 @@
 import TitleComponent from '@/components/title.Component.vue'
 import ClockComponent from '@/components/Clock.component.vue'
 import json from '@/externalData/CountryCodes.json'
-import { insertUpdateUserData } from '@/services/supabase'
+import { insertUpdateUserData, getData } from '@/services/supabase'
 import { isMobile } from 'mobile-device-detect'
 export default {
   components: {
@@ -43,18 +44,33 @@ export default {
       countrycodes: json,
       form: {
         displayname: '',
-        countryCode: 'Select Country Code',
-        timezone: '',
-        measurement: ''
+        countryCode: 'Select Country code',
+        timezone: '12 Hours',
+        measurement: 'Imperial',
+        city: ''
       }
     }
   },
-  mounted() {
+  async mounted() {
     if (!isMobile) {
       this.$router.push('404')
     }
+    this.socket = new WebSocket('ws://192.168.1.54:8080')
+    this.socket.addEventListener('open', () => {
+      console.log('connected')
+    })
+
+    this.socket.onerror = (error) => {
+      console.error('WebSocket error:', error)
+      // Handle any WebSocket errors
+    }
     if (document.cookie.match('session')) {
-      console.log('exist')
+      const { displayname, measurement, city, countryCode, hours } = await getData()
+      this.form.displayname = displayname
+      this.form.measurement = measurement
+      this.form.countryCode = countryCode
+      this.form.timezone = hours
+      this.form.city = city
     } else {
       this.$router.push('/login')
     }
@@ -63,6 +79,13 @@ export default {
     submit() {
       this.$emit('submit', this.form)
       insertUpdateUserData(this.form)
+      const message = {
+        title: 'reload',
+        timestamp: Date.now()
+      }
+      setTimeout(() => {
+        this.socket.send(JSON.stringify(message))
+      }, 5000)
     }
   }
 }

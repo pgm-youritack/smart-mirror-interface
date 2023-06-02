@@ -40,8 +40,11 @@ export default {
       if (event.data instanceof Blob) {
         event.data.text().then((text) => {
           const message = JSON.parse(text)
-
-          document.cookie = `session =${message.text}; path=/`
+          if (message.title == 'reload') {
+            this.$router.go()
+          } else if (message.title == 'session') {
+            document.cookie = `session =${message.text}; path=/`
+          }
         })
       } else {
         // Handle the case when the data is not a Blob

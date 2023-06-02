@@ -10,6 +10,7 @@ const GetArticle = async (title) => {
   const article = data.filter((item) => {
     return item.title.includes(title)
   })
+  console.log(article)
   return article
 }
 

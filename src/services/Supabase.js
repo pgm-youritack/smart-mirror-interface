@@ -23,12 +23,7 @@ const Login = async (form) => {
   }
 }
 const getUserId = async () => {
-  if (
-    document.cookie
-      .split('; ')
-      .find((row) => row.startsWith('session='))
-      .split('=')[1]
-  ) {
+  if (document.cookie.includes('session=')) {
     const token = document.cookie
       .split('; ')
       .find((row) => row.startsWith('session='))
@@ -45,29 +40,45 @@ const getUserId = async () => {
 const insertUpdateUserData = async (form) => {
   const boundGetUserId = getUserId.bind(this)
   const user = await boundGetUserId()
-  console.log(user)
-  if (supabase.from('UserData').select().eq('user_id', user.id)) {
-    const { error } = await supabase
-      .from('UserData')
-      .update({
+  if (user) {
+    if (supabase.from('UserData').select().eq('user_id', user.id)) {
+      const { error } = await supabase
+        .from('UserData')
+        .update({
+          displayname: form.displayname,
+          hours: form.timezone,
+          country_code: form.countryCode,
+          measurements: form.measurement,
+          city: form.city
+        })
+        .eq('user_id', user.id)
+      console.log(error)
+    } else {
+      const { error } = await supabase.from('UserData').insert({
+        user_id: user.id,
         displayname: form.displayname,
         hours: form.timezone,
         country_code: form.countryCode,
         measurements: form.measurement
       })
-      .eq('user_id', user.id)
-    console.log(error)
-  } else {
-    const { error } = await supabase.from('UserData').insert({
-      user_id: user.id,
-      displayname: form.displayname,
-      hours: form.timezone,
-      country_code: form.countryCode,
-      measurements: form.measurement
-    })
-    if (error) {
-      console.log(error)
+      if (error) {
+        console.log(error)
+      }
     }
   }
 }
-export { Register, Login, insertUpdateUserData, getUserId }
+const getData = async () => {
+  const boundGetUserId = getUserId.bind(this)
+  const user = await boundGetUserId()
+  if (user !== null) {
+    let { data: UserData } = await supabase.from('UserData').select('*').eq('user_id', user.id)
+    return {
+      displayname: UserData[0].displayname,
+      countryCode: UserData[0].country_code,
+      city: UserData[0].city,
+      measurement: UserData[0].measurements,
+      hours: UserData[0].hours
+    }
+  }
+}
+export { Register, Login, insertUpdateUserData, getUserId, getData }
