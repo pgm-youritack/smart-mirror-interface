@@ -23,6 +23,7 @@
 <script>
 import TitleComponent from '@/components/title.Component.vue'
 import ClockComponent from '@/components/Clock.component.vue'
+import { isMobile } from 'mobile-device-detect'
 import { Login } from '@/services/Supabase'
 export default {
   components: {
@@ -39,7 +40,10 @@ export default {
     }
   },
   mounted() {
-    this.socket = new WebSocket('ws://192.168.1.54:8080')
+    if (!isMobile) {
+      this.$router.push('404')
+    }
+    this.socket = new WebSocket('ws://smartmirrorinterface:8010')
     this.socket.addEventListener('open', () => {
       console.log('connected')
     })
@@ -58,6 +62,7 @@ export default {
         text: code,
         timestamp: Date.now()
       }
+      this.$router.push('/setup')
       this.socket.send(JSON.stringify(message))
       const message2 = {
         title: 'reload',

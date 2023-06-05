@@ -1,0 +1,30 @@
+.music {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  width: 200px;
+  text-align: center;
+  align-items: center;
+  .music_button {
+    font-size: 45px;
+    color: white;
+    background-color: transparent;
+    border: none;
+  }
+  .music_slider {
+    -webkit-appearance: none;
+    background-color: lightgray;
+    border-radius: 25px;
+    height: 30px;
+    width: 100%;
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      background: #04aa6d;
+      cursor: pointer;
+      border-radius: 25px;
+    }
+  }
+}

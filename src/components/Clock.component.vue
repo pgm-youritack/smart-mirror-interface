@@ -2,7 +2,7 @@
   <h1 class="clock">{{ time }}</h1>
 </template>
 
-<script>
+<script lang="js">
 import { getData } from '@/services/Supabase'
 export default {
   data() {

@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 import Router from '@/Router'
+import { v4 as uuid } from 'uuid'
 const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_KEY)
 
 const Register = async (form) => {
@@ -30,7 +31,7 @@ const getUserId = async () => {
       .split('=')[1]
     const {
       data: { user }
-    } = await supabase.auth.getUser(token)
+    } = await await supabase.auth.getUser(token)
     return user
   } else {
     console.log('didnt find it')
@@ -81,4 +82,52 @@ const getData = async () => {
     }
   }
 }
-export { Register, Login, insertUpdateUserData, getUserId, getData }
+const uploadSong = async (file) => {
+  const boundGetUserId = getUserId.bind(this)
+  const user = await boundGetUserId()
+  const fileid = uuid()
+  if (user !== null) {
+    const { error } = await supabase.storage
+      .from('musicfiles')
+      .upload(`/${fileid}.mp3`, file, { public: true })
+    if (error) {
+      window.alert(error.message)
+      return error.message
+    } else {
+      const { error } = await supabase.from('Music').insert({
+        user_id: user.id,
+        song_name: file.name,
+        file_name: `${fileid}.mp3`
+      })
+      window.alert('upload successfull')
+      return 'upload successful'
+    }
+  }
+}
+const getMusic = async () => {
+  const boundGetUserId = getUserId.bind(this)
+  const user = await boundGetUserId()
+  if (user !== null) {
+    const { data } = await supabase.from('Music').select('song_name').eq('user_id', user.id)
+    return data
+  }
+}
+
+const getMusicFile = async (title) => {
+  const music = await supabase.from('Music').select('file_name').eq('song_name', title)
+  const { data, error } = await supabase.storage
+    .from('musicfiles')
+    .getPublicUrl(music.data[0].file_name)
+  console.log(data)
+  return data
+}
+export {
+  Register,
+  Login,
+  insertUpdateUserData,
+  getUserId,
+  getData,
+  uploadSong,
+  getMusic,
+  getMusicFile
+}

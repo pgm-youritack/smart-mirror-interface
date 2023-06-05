@@ -24,15 +24,23 @@
       </select>
       <input type="submit" value="Save" class="setup__form-input" />
     </form>
+    <div class="input_files">
+      <h2 class="input_files_header">Upload your mp3 files</h2>
+      <p class="input_files_status" v-if="result !== null">{{ result }}</p>
+      <label class="input_files_label">
+        <span>+</span>
+        <input type="file" @change="handleUpload" accept=".mp3;audio/*" /></label>
+    </div>
   </div>
 </template>
 
-<script>
+<script lang="js">
 import TitleComponent from '@/components/title.Component.vue'
 import ClockComponent from '@/components/Clock.component.vue'
 import json from '@/externalData/CountryCodes.json'
-import { insertUpdateUserData, getData } from '@/services/supabase'
+import { insertUpdateUserData, getData, uploadSong } from '@/services/supabase'
 import { isMobile } from 'mobile-device-detect'
+import { v4 as uuidv4 } from 'uuid'
 export default {
   components: {
     TitleComponent,
@@ -48,21 +56,21 @@ export default {
         timezone: '12 Hours',
         measurement: 'Imperial',
         city: ''
-      }
+      },
+      result: null
     }
   },
   async mounted() {
     if (!isMobile) {
       this.$router.push('404')
     }
-    this.socket = new WebSocket('ws://192.168.1.54:8080')
+    this.socket = new WebSocket('ws://smartmirrorinterface:8010')
     this.socket.addEventListener('open', () => {
       console.log('connected')
     })
 
     this.socket.onerror = (error) => {
       console.error('WebSocket error:', error)
-      // Handle any WebSocket errors
     }
     if (document.cookie.match('session')) {
       const { displayname, measurement, city, countryCode, hours } = await getData()
@@ -86,6 +94,11 @@ export default {
       setTimeout(() => {
         this.socket.send(JSON.stringify(message))
       }, 5000)
+    },
+    async handleUpload(event) {
+      const file = event.target.files[0]
+      const uuid = uuidv4()
+      this.result = await uploadSong(file, uuid)
     }
   }
 }

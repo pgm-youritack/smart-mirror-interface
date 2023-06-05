@@ -1,15 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import WeatherVue from '@/views/Weather.View.vue'
 import HomeView from '@/views/Home.View.vue'
 import TodoView from '@/views/ToDo.View.vue'
 import newsView from '@/views/News.View.vue'
-import localmusicView from '@/views/Music.View.vue'
+import musicVIew from '@/views/Music.View.vue'
 import NotFoundView from '@/views/NotFound.View.vue'
 import SetupView from '@/views/Setup.View.vue'
 import newsArticleVIew from '@/views/NewsArticle.View.vue'
 import loginView from '@/views/Login.View.vue'
 import RegisterView from '@/views/Register.View.vue'
 import SuccessView from '@/views/Success.View.vue'
+import musiclistView from '@/views/MusicList.View.vue'
+import WeatherView from '@/views/Weather.View.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -27,13 +28,19 @@ const router = createRouter({
     {
       path: '/Weather',
       name: 'Weather',
-      component: WeatherVue
+      component: WeatherView
     },
     {
       path: '/music',
-      name: 'Music',
-      component: localmusicView
+      name: 'MusicLIst',
+      component: musiclistView
     },
+    {
+      path: '/music/:name',
+      name: 'Music',
+      component: musicVIew
+    },
+
     {
       path: '/News',
       name: 'News',

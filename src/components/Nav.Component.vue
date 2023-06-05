@@ -7,19 +7,14 @@
       <RouterLink class="navigation__item" to="/Music">Music</RouterLink>
       <RouterLink class="navigation__item" to="/News">News</RouterLink>
     </nav>
-    <QrcodeVue
-      value="http://192.168.1.54:5173/Login"
-      :size="50"
-      level="L"
-      render-as="svg"
-      class="qrCode"
-    />
+    <QrcodeVue value=" http://10.130.11.32:5173//Login" :size="50" level="L" render-as="svg" class="qrCode" />
   </div>
 </template>
 
 <script>
 import anime from 'animejs/lib/anime.es.js'
 import QrcodeVue from 'qrcode.vue'
+import { isMobile } from 'mobile-device-detect'
 export default {
   components: {
     QrcodeVue
@@ -31,7 +26,7 @@ export default {
       duration: 200,
       easing: 'linear'
     })
-    this.socket = new WebSocket('ws://192.168.1.54:8080')
+    this.socket = new WebSocket('ws://smartmirrorinterface:8010')
     this.socket.addEventListener('open', () => {
       console.log('connected')
     })
@@ -60,8 +55,11 @@ export default {
       console.log('exist')
     } else {
       this.$router.push('/home')
+      if (isMobile) {
+        this.$router.push('/Login')
+      }
     }
   },
-  watch() {}
+  watch() { }
 }
 </script>

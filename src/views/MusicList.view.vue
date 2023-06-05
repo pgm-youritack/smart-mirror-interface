@@ -1,12 +1,13 @@
 <template>
-  <TitleComponent title="News" />
+  <TitleComponent title="music" />
+  <ClockComponent />
   <div class="viewer">
     <NavComponent />
     <ul class="scroll-container">
-      <li v-for="(article, index) in articles" class="article">
-        {{ index + 1 }}:
-        <a v-bind:href="/News/ + article.title.replace('.', '$')" class="article__link">{{
-          article.title
+      <li v-for="song in songs" class="article">
+        {{ song.id }}:
+        <a v-bind:href="/Music/ + song.song_name.replace(/\./g, '$')" class="article__link">{{
+          song.song_name
         }}</a>
       </li>
     </ul>
@@ -19,19 +20,20 @@ import anime from 'animejs/lib/anime.es.js'
 import TitleComponent from '@/components/title.Component.vue'
 import ClockComponent from '@/components/Clock.component.vue'
 // import { NewsArticleNavigation } from '@/services/VoiceCommands'
-import { getArticles } from '@/services/News'
+import { getMusic } from '@/services/Supabase'
 export default {
   components: {
     TitleComponent,
     NavComponent,
+    ClockComponent
   },
   data() {
     return {
-      articles: []
+      songs: []
     }
   },
   async created() {
-    this.articles = await getArticles()
+    this.songs = await getMusic()
     setTimeout(() => {
       // Get the scroll container element
       const container = document.querySelector('.scroll-container')

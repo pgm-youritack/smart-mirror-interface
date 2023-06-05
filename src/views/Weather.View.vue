@@ -1,7 +1,10 @@
 <template>
   <titleComponent title="Weather" />
   <ClockComponent />
-  <div class="viewer"><NavComponent /> <WeatherModule /></div>
+  <div class="viewer">
+    <NavComponent />
+    <WeatherModule />
+  </div>
 </template>
 
 <script>
