@@ -1,33 +1,44 @@
 <template>
   <TitleComponent title="Local Music" />
-  <div class="viewer">
-    <NavComponent />
-    <div class="music">
-      <img src="@/assets/images/music.png" />
-      <h2>{{ title }}</h2>
-      <button @click="togglePlayback" class="music_button">
-        {{ playing ? '&#8214;' : '&#9654;' }}
-      </button>
-      <input type="range" class="music_slider" v-model="currentTime" :max="duration" @input="seekTo" />
-      <div class="musictimer">
-        <span class="musictimer__current">{{ formatTime(currentTime) }}</span>
-        /
-        <span class="musictimer__duration">{{ formatTime(duration) }}</span>
-      </div>
+  <div class="music">
+    <img :src="Image" />
+    <h2>{{ title }}</h2>
+    <button @click="togglePlayback" class="music_button">
+      {{ playing ? '&#8214;' : '&#9654;' }}
+    </button>
+    <input
+      type="range"
+      class="music_slider"
+      v-model="currentTime"
+      :max="duration"
+      @input="seekTo"
+    />
+    <div class="musictimer">
+      <span class="musictimer__current">{{ formatTime(currentTime) }}</span>
+      /
+      <span class="musictimer__duration">{{ formatTime(duration) }}</span>
     </div>
   </div>
 </template>
 
 <script>
-import NavComponent from '@/components/Nav.Component.vue'
 import TitleComponent from '@/components/title.Component.vue'
 import { getMusicFile } from '../services/Supabase'
 import { Howl } from 'howler'
-
+import { read } from 'jsmediatags/dist/jsmediatags.min.js'
+import placeholderPicture from '@/assets/images/music.png'
+function arrayBufferToBase64(buffer) {
+  let binary = ''
+  const bytes = new Uint8Array(buffer)
+  const len = bytes.byteLength
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i])
+  }
+  return btoa(binary)
+}
 export default {
   components: {
-    TitleComponent,
-    NavComponent,
+    TitleComponent
   },
   data() {
     return {
@@ -37,14 +48,16 @@ export default {
       playing: false,
       interval: null,
       file: '',
-      title: ''
+      title: '',
+      Image: null,
+      placeholder: placeholderPicture
     }
   },
   async mounted() {
     const urlParam = this.$route.params.name.toString().replace(/\$/g, '.')
     this.title = urlParam.replace('.mp3', '')
     this.file = await getMusicFile(urlParam)
-    console.log(this.file.publicUrl)
+
     this.sound = new Howl({
       src: [this.file.publicUrl],
       onplay: () => {
@@ -58,6 +71,7 @@ export default {
       }
     })
     this.togglePlayback()
+    this.getimagefromFile()
   },
   methods: {
     togglePlayback() {
@@ -88,6 +102,24 @@ export default {
         .toString()
         .padStart(2, '0')
       return `${minutes}:${seconds}`
+    },
+    getimagefromFile() {
+      read(this.file.publicUrl, {
+        onSuccess: function (tag) {
+          const { tags } = tag
+
+          if (tags && tags.picture) {
+            const picture = tags.picture
+            const imageDataUrl = `data:${picture.format};base64,${arrayBufferToBase64(
+              picture.data
+            )}`
+            this.$nextTick(() => {
+              this.Image = imageDataUrl
+              console.log(this.Image)
+            })
+          }
+        }
+      })
     }
   }
 }

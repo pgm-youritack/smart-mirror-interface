@@ -17,8 +17,10 @@ export default {
     }
   },
   async mounted() {
-    const { measurement } = await getData()
-    this.measurement = measurement
+    if (this.$cookies.isKey('session')) {
+      const { measurement } = await getData()
+      this.measurement = measurement
+    }
   }
 }
 </script>

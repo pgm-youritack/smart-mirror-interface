@@ -44,11 +44,14 @@ export default {
       delay: 1500,
       easing: 'linear'
     })
-    this.temperature = await getTemp()
-    this.wind = await getWind()
-    this.icon = await GetIcon()
-    this.humid = await GetHumid()
-    this.description = await getDescription()
+
+    if (this.$cookies.isKey('session')) {
+      this.temperature = await getTemp()
+      this.wind = await getWind()
+      this.icon = await GetIcon()
+      this.humid = await GetHumid()
+      this.description = await getDescription()
+    }
   }
 }
 </script>

@@ -3,7 +3,6 @@
   <div class="setup">
     <div class="setup__Header">
       <h1>Setup</h1>
-      <ClockComponent />
     </div>
     <form class="setup__form" @submit.prevent="submit">
       <input type="text" placeholder="Name" class="setup__form-input" v-model="form.displayname" />
@@ -44,7 +43,6 @@ import { v4 as uuidv4 } from 'uuid'
 export default {
   components: {
     TitleComponent,
-    ClockComponent
   },
 
   data() {
@@ -64,7 +62,7 @@ export default {
     if (!isMobile) {
       this.$router.push('404')
     }
-    this.socket = new WebSocket('ws://smartmirrorinterface:8010')
+    this.socket = new WebSocket('ws://192.168.137.1:8080')
     this.socket.addEventListener('open', () => {
       console.log('connected')
     })

@@ -1,6 +1,5 @@
 <template>
   <TitleComponent title="News" />
-  <ClockComponent />
   <div class="viewer">
     <NavComponent />
     <NewsModule :Title="title" :Image="image" :Url="url" :Description="description" />
@@ -18,7 +17,6 @@ export default {
     TitleComponent,
     NavComponent,
     NewsModule,
-    ClockComponent
   },
   data() {
     return {

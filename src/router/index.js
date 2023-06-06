@@ -11,40 +11,53 @@ import RegisterView from '@/views/Register.View.vue'
 import SuccessView from '@/views/Success.View.vue'
 import musiclistView from '@/views/MusicList.View.vue'
 import WeatherView from '@/views/Weather.View.vue'
+import DesktopLayout from '@/views/DesktopLayout.View.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      alias: '/Home',
-      name: 'Home',
-      component: HomeView
-    },
-    {
-      path: '/Todo',
-      name: 'Todo',
-      component: TodoView
-    },
-    {
-      path: '/Weather',
-      name: 'Weather',
-      component: WeatherView
-    },
-    {
-      path: '/music',
-      name: 'MusicLIst',
-      component: musiclistView
-    },
-    {
-      path: '/music/:name',
-      name: 'Music',
-      component: musicVIew
-    },
+      component: DesktopLayout,
+      redirect: '/Home',
+      children: [
+        {
+          path: '/Home',
+          alias: '/Home',
+          name: 'Home',
+          component: HomeView
+        },
+        {
+          path: '/Todo',
+          name: 'Todo',
+          component: TodoView
+        },
+        {
+          path: '/Weather',
+          name: 'Weather',
+          component: WeatherView
+        },
+        {
+          path: '/music',
+          name: 'MusicLIst',
+          component: musiclistView
+        },
+        {
+          path: '/music/:name',
+          name: 'Music',
+          component: musicVIew
+        },
 
-    {
-      path: '/News',
-      name: 'News',
-      component: newsView
+        {
+          path: '/News',
+          name: 'News',
+          component: newsView
+        },
+        {
+          path: '/News/:name',
+          name: 'Article',
+          component: newsArticleVIew
+        }
+      ]
     },
 
     {
@@ -52,11 +65,7 @@ const router = createRouter({
       name: 'Setup',
       component: SetupView
     },
-    {
-      path: '/News/:name',
-      name: 'Article',
-      component: newsArticleVIew
-    },
+
     {
       path: '/Login',
       name: 'Login',

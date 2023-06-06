@@ -3,17 +3,10 @@
   <div class="setup">
     <div class="setup__Header">
       <h1>Register</h1>
-      <ClockComponent />
     </div>
     <form class="setup__form" @submit.prevent="submit">
       <input type="email" placeholder="E-mail" class="setup__form-input" v-model="form.email" />
-      <input
-        type="Password"
-        placeholder="Password"
-        class="setup__form-input"
-        name="Password"
-        v-model="form.password"
-      />
+      <input type="Password" placeholder="Password" class="setup__form-input" name="Password" v-model="form.password" />
 
       <input type="submit" value="Register" class="setup__form-input" />
     </form>
@@ -27,8 +20,7 @@ import { isMobile } from 'mobile-device-detect'
 import { Register } from '@/services/Supabase'
 export default {
   components: {
-    TitleComponent,
-    ClockComponent
+    TitleComponent
   },
   data() {
     return {

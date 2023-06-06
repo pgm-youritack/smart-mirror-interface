@@ -2,8 +2,8 @@
   <TitleComponent title="Login" />
   <div class="setup">
     <div class="setup__Header">
-      <h1>Login</h1>
       <ClockComponent />
+      <h1>Login</h1>
     </div>
     <form class="setup__form" @submit.prevent="submit">
       <input type="email" placeholder="E-Mail" class="setup__form-input" v-model="form.email" />
@@ -43,7 +43,7 @@ export default {
     if (!isMobile) {
       this.$router.push('404')
     }
-    this.socket = new WebSocket('ws://smartmirrorinterface:8010')
+    this.socket = new WebSocket('ws://192.168.1.54:8080')
     this.socket.addEventListener('open', () => {
       console.log('connected')
     })
