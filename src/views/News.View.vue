@@ -3,7 +3,7 @@
 
   <ul class="scroll-container">
     <li v-for="(article, index) in articles" class="article">
-      {{ index + 1 }}:
+      #{{ index + 1 }}:
       <router-link :to="/News/ + article.title.replace('.', '$')" class="article__link">{{
         article.title
       }}</router-link>

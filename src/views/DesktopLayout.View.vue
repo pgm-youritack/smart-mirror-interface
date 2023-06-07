@@ -4,25 +4,31 @@
     <navComponent />
     <RouterView></RouterView>
   </div>
+  <MusicPlayerComponent v-if="showMusicPLayer" :songSelected="currentTitle" />
 </template>
 
 <script>
 import navComponent from '@/components/nav.Component.vue'
 import ClockComponent from '@/components/clock.component.vue'
+import MusicPlayerComponent from '@/components/MusicPlayer.component.vue'
 import { isMobile } from 'mobile-device-detect'
+import eventbus from '../utils/eventBus'
+import { watch } from 'vue'
 export default {
   name: 'desktopLayout',
   components: {
     ClockComponent,
-    navComponent
+    navComponent,
+    MusicPlayerComponent
+  },
+  data() {
+    return {
+      currentTitle: '',
+      showMusicPLayer: false
+    }
   },
   mounted() {
-    const cookieExists = this.$cookies.isKey('session')
-    console.log(cookieExists)
     this.socket = new WebSocket('ws://192.168.1.54:8080')
-    this.socket.addEventListener('open', () => {
-      console.log('connected')
-    })
     this.socket.onmessage = (event) => {
       // Check if the received data is a Blob object
       if (event.data instanceof Blob) {
@@ -39,11 +45,6 @@ export default {
         console.log('Received non-Blob message:', event.data)
       }
     }
-
-    this.socket.onclose = () => {
-      console.log('WebSocket connection closed')
-      // Handle any necessary actions when the connection is closed
-    }
     if (isMobile) {
       this.$router.push('/Login')
     }
@@ -51,9 +52,15 @@ export default {
   created() {
     const requiredCookie = 'your_cookie_name' // Replace 'your_cookie_name' with the name of the specific cookie you want to check
     const hasCookie = this.$cookies.isKey(requiredCookie)
-
     if (!hasCookie && this.$route.path !== '/') {
       this.$router.push('/') // Redirect to home page
+    }
+    watch(() => eventbus.songSelected, this.handleSelectedSong)
+  },
+  methods: {
+    handleSelectedSong(title) {
+      this.currentTitle = title
+      this.showMusicPLayer = true
     }
   }
 }

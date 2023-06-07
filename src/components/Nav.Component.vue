@@ -18,7 +18,7 @@
       >
     </nav>
     <QrcodeVue
-      value=" http://192.168.137.1:5173/Login"
+      value=" http://192.168.1.54:5173/Login"
       :size="50"
       level="L"
       render-as="svg"

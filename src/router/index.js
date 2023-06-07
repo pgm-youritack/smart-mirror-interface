@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/Home.View.vue'
 import TodoView from '@/views/ToDo.View.vue'
 import newsView from '@/views/News.View.vue'
-import musicVIew from '@/views/Music.View.vue'
 import NotFoundView from '@/views/NotFound.View.vue'
 import SetupView from '@/views/Setup.View.vue'
 import newsArticleVIew from '@/views/NewsArticle.View.vue'
@@ -41,12 +40,6 @@ const router = createRouter({
           name: 'MusicLIst',
           component: musiclistView
         },
-        {
-          path: '/music/:name',
-          name: 'Music',
-          component: musicVIew
-        },
-
         {
           path: '/News',
           name: 'News',

@@ -40,6 +40,9 @@ export default {
   components: {
     TitleComponent
   },
+  props: {
+    songSelected: Text
+  },
   data() {
     return {
       sound: null,
@@ -54,7 +57,7 @@ export default {
     }
   },
   async mounted() {
-    const urlParam = this.$route.params.name.toString().replace(/\$/g, '.')
+    const urlParam = this.songSelected.toString().replace(/\$/g, '.')
     this.title = urlParam.replace('.mp3', '')
     this.file = await getMusicFile(urlParam)
 
