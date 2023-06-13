@@ -1,22 +1,25 @@
 <template>
   <TitleComponent title="Local Music" />
   <div class="music">
-    <img :src="Image" />
-    <h2>{{ title }}</h2>
-    <button @click="togglePlayback" class="music_button">
-      {{ playing ? '&#8214;' : '&#9654;' }}
-    </button>
-    <input
-      type="range"
-      class="music_slider"
-      v-model="currentTime"
-      :max="duration"
-      @input="seekTo"
-    />
-    <div class="musictimer">
-      <span class="musictimer__current">{{ formatTime(currentTime) }}</span>
-      /
-      <span class="musictimer__duration">{{ formatTime(duration) }}</span>
+    <div class="music__image-title">
+      <img :src="Image" />
+      <h2>{{ title }}</h2>
+    </div>
+    <div class="music__player">
+      <button @click="togglePlayback" class="music_button">
+        {{ playing ? '&#8214;' : '&#9654;' }}
+      </button>
+      <div class="music__slider">
+        <span class="musictimer__current">{{ formatTime(currentTime) }}</span>
+        <input
+          type="range"
+          class="music_slider-input"
+          v-model="currentTime"
+          :max="duration"
+          @input="seekTo"
+        />
+        <span class="musictimer__duration">{{ formatTime(duration) }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -52,29 +55,51 @@ export default {
       interval: null,
       file: '',
       title: '',
-      Image: null,
+      Image: placeholderPicture,
       placeholder: placeholderPicture
     }
   },
   async mounted() {
-    const urlParam = this.songSelected.toString().replace(/\$/g, '.')
-    this.title = urlParam.replace('.mp3', '')
-    this.file = await getMusicFile(urlParam)
+    const loadSong = async (newSong) => {
+      if (newSong) {
+        const urlParam = newSong.toString().replace(/\$/g, '.')
+        this.title = urlParam.replace('.mp3', '')
+        this.file = await getMusicFile(urlParam)
 
-    this.sound = new Howl({
-      src: [this.file.publicUrl],
-      onplay: () => {
-        this.duration = this.sound.duration()
-        this.startSliderUpdateInterval()
-      },
-      onend: () => {
-        this.playing = false
+        if (this.sound) {
+          this.sound.stop()
+          this.sound.unload()
+          this.sound = null
+        }
+
+        this.sound = new Howl({
+          src: [this.file.publicUrl],
+          onplay: () => {
+            this.duration = this.sound.duration()
+            this.startSliderUpdateInterval()
+          },
+          onend: () => {
+            this.playing = false
+            this.currentTime = 0
+            clearInterval(this.interval)
+          }
+        })
+
+        this.playing = true
         this.currentTime = 0
-        clearInterval(this.interval)
+        this.sound.play()
       }
+    }
+
+    this.$watch('songSelected', async (newSong) => {
+      await loadSong(newSong)
     })
-    this.togglePlayback()
-    this.getimagefromFile()
+
+    // Load the initial song if available
+    await loadSong(this.songSelected)
+    setTimeout(() => {
+      this.getimagefromFile()
+    }, 1)
   },
   methods: {
     togglePlayback() {
@@ -113,13 +138,13 @@ export default {
 
           if (tags && tags.picture) {
             const picture = tags.picture
-            const imageDataUrl = `data:${picture.format};base64,${arrayBufferToBase64(
+            const imageDataUrl = `data:${picture.format};base64,  ${arrayBufferToBase64(
               picture.data
             )}`
-            this.$nextTick(() => {
+            setTimeout(() => {
               this.Image = imageDataUrl
               console.log(this.Image)
-            })
+            }, 0)
           }
         }
       })

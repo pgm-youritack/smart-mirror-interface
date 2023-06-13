@@ -12,6 +12,7 @@ import musiclistView from '@/views/MusicList.View.vue'
 import WeatherView from '@/views/Weather.View.vue'
 import DesktopLayout from '@/views/DesktopLayout.View.vue'
 const router = createRouter({
+  mode: 'history',
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {

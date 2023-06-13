@@ -7,6 +7,10 @@
   overflow-y: hidden;
   .article {
     list-style: none;
+    span {
+      opacity: 0.3;
+      font-weight: lighter;
+    }
     .article__link {
       text-decoration: none;
       color: white;

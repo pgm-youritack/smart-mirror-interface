@@ -1,10 +1,12 @@
 <template>
   <ClockComponent />
-  <div class="viewer">
-    <navComponent />
-    <RouterView></RouterView>
+  <div class="container">
+    <div class="viewer">
+      <navComponent />
+      <RouterView></RouterView>
+    </div>
+    <MusicPlayerComponent v-if="showMusicPLayer" :songSelected="currentTitle" />
   </div>
-  <MusicPlayerComponent v-if="showMusicPLayer" :songSelected="currentTitle" />
 </template>
 
 <script>
@@ -52,7 +54,7 @@ export default {
   created() {
     const requiredCookie = 'your_cookie_name' // Replace 'your_cookie_name' with the name of the specific cookie you want to check
     const hasCookie = this.$cookies.isKey(requiredCookie)
-    if (!hasCookie && this.$route.path !== '/') {
+    if (!hasCookie) {
       this.$router.push('/') // Redirect to home page
     }
     watch(() => eventbus.songSelected, this.handleSelectedSong)

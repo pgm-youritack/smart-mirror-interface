@@ -121,6 +121,28 @@ const getMusicFile = async (title) => {
   console.log(data)
   return data
 }
+
+const getTodoItems = async () => {
+  const boundGetUserId = getUserId.bind(this)
+  const user = await boundGetUserId()
+  if (user !== null) {
+    const { data } = await supabase.from('Todo').select('*').eq('user_id', user.id)
+    return data
+  }
+}
+const insertTodoItem = async (form) => {
+  const boundGetUserId = getUserId.bind(this)
+  const user = await boundGetUserId()
+  if (user !== null) {
+    const { error } = await supabase.from('Todo').insert({
+      user_id: user.id,
+      item: form.item
+    })
+    if (error) {
+      console.log(error)
+    }
+  }
+}
 export {
   Register,
   Login,
@@ -129,5 +151,7 @@ export {
   getData,
   uploadSong,
   getMusic,
-  getMusicFile
+  getMusicFile,
+  getTodoItems,
+  insertTodoItem
 }

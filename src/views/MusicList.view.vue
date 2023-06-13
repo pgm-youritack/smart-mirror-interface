@@ -48,8 +48,8 @@ export default {
   },
   methods: {
     playSong(songUrl) {
-      console.log(songUrl)
       eventbus.songSelected = songUrl
+      this.$router.push('/home')
     }
   }
 }

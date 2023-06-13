@@ -2,6 +2,7 @@
   <TitleComponent title="Setup" />
   <div class="setup">
     <div class="setup__Header">
+      <ClockComponent />
       <h1>Setup</h1>
     </div>
     <form class="setup__form" @submit.prevent="submit">
@@ -28,7 +29,8 @@
       <p class="input_files_status" v-if="result !== null">{{ result }}</p>
       <label class="input_files_label">
         <span>+</span>
-        <input type="file" @change="handleUpload" accept=".mp3;audio/*" /></label>
+        <input type="file" @change="handleUpload" accept=".mp3;audio/*"
+      /></label>
     </div>
   </div>
 </template>
@@ -43,6 +45,7 @@ import { v4 as uuidv4 } from 'uuid'
 export default {
   components: {
     TitleComponent,
+    ClockComponent
   },
 
   data() {

@@ -1,30 +1,44 @@
 .music {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   color: white;
-  width: 200px;
+  width: 800px;
   text-align: center;
   align-items: center;
-  .music_button {
-    font-size: 45px;
-    color: white;
-    background-color: transparent;
-    border: none;
+  gap: 2rem;
+  .music__image-title {
+    display: flex;
+    flex-direction: column;
   }
-  .music_slider {
-    -webkit-appearance: none;
-    background-color: lightgray;
-    border-radius: 25px;
-    height: 30px;
-    width: 100%;
-    &::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 25px;
-      height: 25px;
-      background: #04aa6d;
-      cursor: pointer;
-      border-radius: 25px;
+  .music__player {
+    display: flex;
+    flex-direction: column;
+    .music_button {
+      font-size: 45px;
+      color: white;
+      background-color: transparent;
+      border: none;
+    }
+    .music__slider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      .music_slider-input {
+        -webkit-appearance: none;
+        background-color: lightgray;
+        border-radius: 25px;
+        height: 15px;
+        width: 100%;
+        &::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 20px;
+          height: 20px;
+          background: gray;
+          cursor: pointer;
+          border-radius: 25px;
+        }
+      }
     }
   }
 }

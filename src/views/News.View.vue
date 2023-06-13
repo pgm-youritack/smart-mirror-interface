@@ -3,7 +3,7 @@
 
   <ul class="scroll-container">
     <li v-for="(article, index) in articles" class="article">
-      #{{ index + 1 }}:
+      <span>#{{ index + 1 }}:</span>
       <router-link :to="/News/ + article.title.replace('.', '$')" class="article__link">{{
         article.title
       }}</router-link>
@@ -26,32 +26,30 @@ export default {
     }
   },
   async created() {
-    if (this.$cookies.isKey('session')) {
-      this.articles = await getArticles()
-      setTimeout(() => {
-        // Get the scroll container element
-        const container = document.querySelector('.scroll-container')
+    this.articles = await getArticles()
+    setTimeout(() => {
+      // Get the scroll container element
+      const container = document.querySelector('.scroll-container')
 
-        // Calculate the total height of the content
-        const contentHeight = container.scrollHeight
-        console.log(contentHeight)
+      // Calculate the total height of the content
+      const contentHeight = container.scrollHeight
+      console.log(contentHeight)
 
-        const animation = anime.timeline({
-          easing: 'linear',
-          duration: 10000,
-          loop: true
+      const animation = anime.timeline({
+        easing: 'linear',
+        duration: 20000,
+        loop: true
+      })
+      animation
+        .add({
+          targets: '.scroll-container',
+          scrollTop: contentHeight
         })
-        animation
-          .add({
-            targets: '.scroll-container',
-            scrollTop: contentHeight
-          })
-          .add({
-            targets: '.scroll-container',
-            scrollTop: 0
-          })
-      }, 1000)
-    }
+        .add({
+          targets: '.scroll-container',
+          scrollTop: 0
+        })
+    }, 1000)
   }
 }
 </script>
