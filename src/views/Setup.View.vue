@@ -1,11 +1,12 @@
 <template>
   <TitleComponent title="Setup" />
+  <div class="header">
+    <ClockComponent />
+    <h1>Setup</h1>
+  </div>
   <div class="setup">
-    <div class="setup__Header">
-      <ClockComponent />
-      <h1>Setup</h1>
-    </div>
     <form class="setup__form" @submit.prevent="submit">
+      <RouterLink class="RegisterLink" to="/Commando">Commando's</RouterLink>
       <input type="text" placeholder="Name" class="setup__form-input" v-model="form.displayname" />
       <select v-model="form.countryCode" class="setup__form-select">
         <option selected="true" disabled="disabled">Select Country code</option>
@@ -29,8 +30,7 @@
       <p class="input_files_status" v-if="result !== null">{{ result }}</p>
       <label class="input_files_label">
         <span>+</span>
-        <input type="file" @change="handleUpload" accept=".mp3;audio/*"
-      /></label>
+        <input type="file" @change="handleUpload" accept=".mp3;audio/*" /></label>
     </div>
   </div>
 </template>
@@ -39,7 +39,7 @@
 import TitleComponent from '@/components/title.Component.vue'
 import ClockComponent from '@/components/Clock.component.vue'
 import json from '@/externalData/CountryCodes.json'
-import { insertUpdateUserData, getData, uploadSong } from '@/services/supabase'
+import { insertUpdateUserData, getData, uploadSong } from '@/services/Supabase'
 import { isMobile } from 'mobile-device-detect'
 import { v4 as uuidv4 } from 'uuid'
 export default {
@@ -65,7 +65,7 @@ export default {
     if (!isMobile) {
       this.$router.push('404')
     }
-    this.socket = new WebSocket('ws://192.168.137.1:8080')
+    this.socket = new WebSocket('ws://192.168.1.51:8010')
     this.socket.addEventListener('open', () => {
       console.log('connected')
     })

@@ -6,9 +6,16 @@
   text-align: center;
   align-items: center;
   gap: 2rem;
-  .music__image-title {
+  .music__Header {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 250px;
+    .music__Header-Image {
+      width: 250px;
+    }
   }
   .music__player {
     display: flex;

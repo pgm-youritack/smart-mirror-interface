@@ -1,22 +1,16 @@
 <template>
   <TitleComponent title="News" />
-  <div class="viewer">
-    <NavComponent />
-    <NewsModule :Title="title" :Image="image" :Url="url" :Description="description" />
-  </div>
+  <NewsModule :Title="title" :Image="image" :Url="url" :Description="description" />
 </template>
 
 <script>
-import NavComponent from '@/components/Nav.Component.vue'
 import TitleComponent from '@/components/title.Component.vue'
 import NewsModule from '@/components/news/News.Module.vue'
-import ClockComponent from '@/components/Clock.component.vue'
 import { GetArticle } from '@/services/News'
 export default {
   components: {
     TitleComponent,
-    NavComponent,
-    NewsModule,
+    NewsModule
   },
   data() {
     return {

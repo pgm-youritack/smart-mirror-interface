@@ -1,38 +1,25 @@
 <template>
   <div class="navigationContainer">
     <nav class="navigation">
-      <RouterLink class="navigation__item" to="/Home" @click="checkCookieAndNavigate('/Home')"
-        >Home</RouterLink
-      >
-      <RouterLink class="navigation__item" to="/Weather" @click="checkCookieAndNavigate('/Weather')"
-        >Weather</RouterLink
-      >
-      <RouterLink class="navigation__item" to="/Todo" @click="checkCookieAndNavigate('/Todo')"
-        >ToDo</RouterLink
-      >
-      <RouterLink class="navigation__item" to="/Music" @click="checkCookieAndNavigate('/Music')"
-        >Music</RouterLink
-      >
-      <RouterLink class="navigation__item" to="/News" @click="checkCookieAndNavigate('/News')"
-        >News</RouterLink
-      >
+      <RouterLink class="navigation__item" to="/Home" @click="checkCookieAndNavigate('/Home')">Home</RouterLink>
+      <RouterLink class="navigation__item" to="/Weather" @click="checkCookieAndNavigate('/Weather')">Weather</RouterLink>
+      <RouterLink class="navigation__item" to="/Todo" @click="checkCookieAndNavigate('/Todo')">ToDo</RouterLink>
+      <RouterLink class="navigation__item" to="/Music" @click="checkCookieAndNavigate('/Music')">Music</RouterLink>
+      <RouterLink class="navigation__item" to="/News" @click="checkCookieAndNavigate('/News')">News</RouterLink>
     </nav>
-    <QrcodeVue
-      value=" http://192.168.1.54:5173/Login"
-      :size="50"
-      level="L"
-      render-as="svg"
-      class="qrCode"
-    />
+    <QrcodeVue value=" http://192.168.1.51:5173/Login" :size="50" level="L" render-as="svg" class="qrCode" />
   </div>
 </template>
 
 <script>
 import QrcodeVue from 'qrcode.vue'
-
+import { Navigation } from '@/services/VoiceCommands'
 export default {
   components: {
     QrcodeVue
+  },
+  mounted() {
+    Navigation()
   },
   methods: {
     checkCookieAndNavigate(path) {

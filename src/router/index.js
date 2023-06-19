@@ -11,6 +11,7 @@ import SuccessView from '@/views/Success.View.vue'
 import musiclistView from '@/views/MusicList.View.vue'
 import WeatherView from '@/views/Weather.View.vue'
 import DesktopLayout from '@/views/DesktopLayout.View.vue'
+import commandoView from '@/views/Commando.View.vue'
 const router = createRouter({
   mode: 'history',
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -59,7 +60,11 @@ const router = createRouter({
       name: 'Setup',
       component: SetupView
     },
-
+    {
+      path: '/Commando',
+      name: 'Commando',
+      component: commandoView
+    },
     {
       path: '/Login',
       name: 'Login',

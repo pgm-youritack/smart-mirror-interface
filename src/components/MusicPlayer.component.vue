@@ -1,12 +1,12 @@
 <template>
   <TitleComponent title="Local Music" />
   <div class="music">
-    <div class="music__image-title">
-      <img :src="Image" />
-      <h2>{{ title }}</h2>
+    <div class="music__Header">
+      <img class="music__Header-Image" :src="Image ? Image : placeholder" />
+      <h2 class="music__Header-title">{{ title }}</h2>
     </div>
     <div class="music__player">
-      <button @click="togglePlayback" class="music_button">
+      <button @click="togglePlayback(playing)" class="music_button">
         {{ playing ? '&#8214;' : '&#9654;' }}
       </button>
       <div class="music__slider">
@@ -26,7 +26,8 @@
 
 <script>
 import TitleComponent from '@/components/title.Component.vue'
-import { getMusicFile } from '../services/Supabase'
+import { getMusicFile } from '@/services/Supabase'
+import { MusicStatus } from '@/services/VoiceCommands'
 import { Howl } from 'howler'
 import { read } from 'jsmediatags/dist/jsmediatags.min.js'
 import placeholderPicture from '@/assets/images/music.png'
@@ -55,8 +56,18 @@ export default {
       interval: null,
       file: '',
       title: '',
-      Image: placeholderPicture,
+      Image: null,
       placeholder: placeholderPicture
+    }
+  },
+  computed: {
+    musicStatuswatcher() {
+      return MusicStatus
+    }
+  },
+  watch: {
+    musicStatuswatcher(newvalue) {
+      this.togglePlayback(newvalue)
     }
   },
   async mounted() {
@@ -88,6 +99,7 @@ export default {
         this.playing = true
         this.currentTime = 0
         this.sound.play()
+        this.Image = await this.getimagefromFile(this.file.publicUrl)
       }
     }
 
@@ -97,13 +109,10 @@ export default {
 
     // Load the initial song if available
     await loadSong(this.songSelected)
-    setTimeout(() => {
-      this.getimagefromFile()
-    }, 1)
   },
   methods: {
-    togglePlayback() {
-      if (this.playing) {
+    togglePlayback(playstatus) {
+      if (playstatus) {
         this.sound.pause()
         this.playing = false
         clearInterval(this.interval)
@@ -131,22 +140,20 @@ export default {
         .padStart(2, '0')
       return `${minutes}:${seconds}`
     },
-    getimagefromFile() {
-      read(this.file.publicUrl, {
-        onSuccess: function (tag) {
-          const { tags } = tag
-
-          if (tags && tags.picture) {
-            const picture = tags.picture
-            const imageDataUrl = `data:${picture.format};base64,  ${arrayBufferToBase64(
-              picture.data
-            )}`
-            setTimeout(() => {
-              this.Image = imageDataUrl
-              console.log(this.Image)
-            }, 0)
+    getimagefromFile(fileurl) {
+      return new Promise((resolve) => {
+        read(fileurl, {
+          onSuccess: function (tag) {
+            const { tags } = tag
+            if (tags && tags.picture) {
+              const picture = tags.picture
+              const image = `data:${picture.format};base64,${arrayBufferToBase64(picture.data)}`
+              resolve(image)
+            } else {
+              resolve(null)
+            }
           }
-        }
+        })
       })
     }
   }

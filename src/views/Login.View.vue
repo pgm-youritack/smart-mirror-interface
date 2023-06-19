@@ -1,19 +1,13 @@
 <template>
   <TitleComponent title="Login" />
+  <div class="header">
+    <ClockComponent />
+    <h1 class="header__title">Login</h1>
+  </div>
   <div class="setup">
-    <div class="setup__Header">
-      <ClockComponent />
-      <h1>Login</h1>
-    </div>
     <form class="setup__form" @submit.prevent="submit">
       <input type="email" placeholder="E-Mail" class="setup__form-input" v-model="form.email" />
-      <input
-        type="Password"
-        placeholder="Password"
-        class="setup__form-input"
-        name="Password"
-        v-model="form.password"
-      />
+      <input type="Password" placeholder="Password" class="setup__form-input" name="Password" v-model="form.password" />
       <input type="submit" value="Login" class="setup__form-input" />
       <RouterLink class="RegisterLink" to="/Register">register (if you are new here)</RouterLink>
     </form>
@@ -43,7 +37,7 @@ export default {
     if (!isMobile) {
       this.$router.push('404')
     }
-    this.socket = new WebSocket('ws://192.168.1.54:8080')
+    this.socket = new WebSocket('ws://192.168.1.51:8010')
     this.socket.addEventListener('open', () => {
       console.log('connected')
     })

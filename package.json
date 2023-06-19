@@ -1,23 +1,17 @@
 {
-  "name": "vue-project",
-  "version": "0.0.0",
+  "name": "test",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "test:unit": "vitest",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.4.0",
     "@supabase/supabase-js": "^2.23.0",
-    "@vueuse/core": "^10.1.2",
     "animejs": "^3.2.1",
     "artyom.js": "^1.0.6",
     "axios": "^1.4.0",
-    "buffer": "^6.0.3",
     "howler": "^2.2.3",
     "jsmediatags": "^3.9.7",
     "mobile-device-detect": "^0.4.3",
@@ -28,21 +22,39 @@
     "vue": "^3.3.2",
     "vue-cookies": "^1.8.3",
     "vue-router": "^4.2.0",
-    "vuex": "^4.1.0"
+    "vuex": "^4.1.0",
+    "words-to-numbers": "^1.5.1"
   },
   "devDependencies": {
-    "@rushstack/eslint-patch": "^1.2.0",
-    "@types/node": "^20.2.5",
-    "@vitejs/plugin-vue": "^4.2.3",
-    "@vitejs/plugin-vue-jsx": "^3.0.1",
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/eslint-config-prettier": "^7.1.0",
-    "@vue/test-utils": "^2.3.2",
+    "dotenv": "^16.3.1",
     "eslint": "^8.39.0",
     "eslint-plugin-vue": "^9.11.0",
-    "jsdom": "^22.0.0",
-    "prettier": "^2.8.8",
-    "sass": "^1.62.1",
-    "vite": "^4.3.5",
-    "vitest": "^0.31.0"
-  }
+    "sass": "^1.63.4",
+    "sass-loader": "^13.3.2"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
 }

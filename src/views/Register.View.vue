@@ -1,12 +1,18 @@
 <template>
   <TitleComponent title="Login" />
+  <div class="header">
+    <h1 class="header__title">Register</h1>
+  </div>
   <div class="setup">
-    <div class="setup__Header">
-      <h1>Register</h1>
-    </div>
     <form class="setup__form" @submit.prevent="submit">
       <input type="email" placeholder="E-mail" class="setup__form-input" v-model="form.email" />
-      <input type="Password" placeholder="Password" class="setup__form-input" name="Password" v-model="form.password" />
+      <input
+        type="Password"
+        placeholder="Password"
+        class="setup__form-input"
+        name="Password"
+        v-model="form.password"
+      />
 
       <input type="submit" value="Register" class="setup__form-input" />
     </form>

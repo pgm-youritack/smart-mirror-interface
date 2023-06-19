@@ -1,0 +1,27 @@
+.commando {
+  display: flex;
+  margin: 1rem;
+  width: 100%;
+  flex-direction: column;
+  .commando__item {
+    .commando__item-header {
+      font-weight: bold;
+      font-size: 30px;
+    }
+    .commando__item-list {
+      display: flex;
+      flex-direction: column;
+      color: white;
+      gap: 0.5rem;
+      list-style: none;
+      .commando__item-list-item::before {
+        content: '\2014';
+        position: absolute;
+        margin-left: -20px;
+      }
+      .commando__item-list-item {
+        font-weight: lighter;
+      }
+    }
+  }
+}

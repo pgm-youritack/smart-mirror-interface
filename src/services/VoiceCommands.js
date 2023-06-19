@@ -1,4 +1,5 @@
 import artyom from 'artyom.js'
+
 import Router from '@/router'
 // import getArticles from '@/services/News'
 const voice = new artyom()
@@ -39,5 +40,26 @@ const Navigation = () => {
     }
   ])
 }
+const MusicStatus = () => {
+  voice.addCommands({
+    indexes: ['play ', 'pause'],
+    action: (i) => {
+      if (i === 0) {
+        return true
+      } else if (i === 1) {
+        return false
+      }
+    }
+  })
+}
+const NewsArticle = (articles) => {
+  voice.addCommands({
+    smart: true,
+    indexes: ['article *'],
+    action: function (i, wildcard) {
+      console.log(wildcard)
+    }
+  })
+}
 
-export { Navigation }
+export { Navigation, MusicStatus, NewsArticle }

@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import navComponent from '@/components/nav.Component.vue'
-import ClockComponent from '@/components/clock.component.vue'
+import navComponent from '@/components/Nav.Component.vue'
+import ClockComponent from '@/components/Clock.component.vue'
 import MusicPlayerComponent from '@/components/MusicPlayer.component.vue'
 import { isMobile } from 'mobile-device-detect'
 import eventbus from '../utils/eventBus'
@@ -30,7 +30,7 @@ export default {
     }
   },
   mounted() {
-    this.socket = new WebSocket('ws://192.168.1.54:8080')
+    this.socket = new WebSocket('ws://192.168.1.51:8010')
     this.socket.onmessage = (event) => {
       // Check if the received data is a Blob object
       if (event.data instanceof Blob) {
@@ -52,7 +52,7 @@ export default {
     }
   },
   created() {
-    const requiredCookie = 'your_cookie_name' // Replace 'your_cookie_name' with the name of the specific cookie you want to check
+    const requiredCookie = 'session' // Replace 'your_cookie_name' with the name of the specific cookie you want to check
     const hasCookie = this.$cookies.isKey(requiredCookie)
     if (!hasCookie) {
       this.$router.push('/') // Redirect to home page

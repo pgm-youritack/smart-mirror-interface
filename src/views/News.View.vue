@@ -14,7 +14,7 @@
 <script>
 import anime from 'animejs/lib/anime.es.js'
 import TitleComponent from '@/components/title.Component.vue'
-
+import { NewsArticle } from '@/services/VoiceCommands'
 import { getArticles } from '@/services/News'
 export default {
   components: {
@@ -27,6 +27,7 @@ export default {
   },
   async created() {
     this.articles = await getArticles()
+    NewsArticle(this.articles)
     setTimeout(() => {
       // Get the scroll container element
       const container = document.querySelector('.scroll-container')

@@ -1,6 +1,4 @@
 /* eslint-env node */
-require('@rushstack/eslint-patch/modern-module-resolution')
-
 module.exports = {
   root: true,
   extends: [
@@ -13,7 +11,8 @@ module.exports = {
   },
   rules: {
     'vue/multi-word-component-names': 'off',
-    'vue/require-v-for-key': 'off'
+    'vue/require-v-for-key': 'off',
+    'no-unused-vars': 'off'
   },
   env: {
     node: true

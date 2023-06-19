@@ -1,7 +1,9 @@
 import { createClient } from '@supabase/supabase-js'
-import Router from '@/Router'
+import Router from '@/router'
 import { v4 as uuid } from 'uuid'
-const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_KEY)
+console.log(process.env.VUE_APP_SUPABASE_URL)
+console.log(process.env.VUE_APP_SUPABASE_KEY)
+const supabase = createClient(process.env.VUE_APP_SUPABASE_URL, process.env.VUE_APP_SUPABASE_KEY)
 
 const Register = async (form) => {
   supabase.auth.signUp({
@@ -94,7 +96,7 @@ const uploadSong = async (file) => {
       window.alert(error.message)
       return error.message
     } else {
-      const { error } = await supabase.from('Music').insert({
+      await supabase.from('Music').insert({
         user_id: user.id,
         song_name: file.name,
         file_name: `${fileid}.mp3`
@@ -115,10 +117,7 @@ const getMusic = async () => {
 
 const getMusicFile = async (title) => {
   const music = await supabase.from('Music').select('file_name').eq('song_name', title)
-  const { data, error } = await supabase.storage
-    .from('musicfiles')
-    .getPublicUrl(music.data[0].file_name)
-  console.log(data)
+  const { data } = await supabase.storage.from('musicfiles').getPublicUrl(music.data[0].file_name)
   return data
 }
 
