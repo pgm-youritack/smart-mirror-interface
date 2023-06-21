@@ -14,7 +14,7 @@ import DesktopLayout from '@/views/DesktopLayout.View.vue'
 import commandoView from '@/views/Commando.View.vue'
 const router = createRouter({
   mode: 'history',
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(''),
   routes: [
     {
       path: '/',

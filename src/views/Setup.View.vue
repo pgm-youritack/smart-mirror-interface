@@ -30,7 +30,8 @@
       <p class="input_files_status" v-if="result !== null">{{ result }}</p>
       <label class="input_files_label">
         <span>+</span>
-        <input type="file" @change="handleUpload" accept=".mp3;audio/*" /></label>
+        <input type="file" @change="handleUpload" accept=".mp3;audio/*"
+      /></label>
     </div>
   </div>
 </template>
@@ -65,7 +66,7 @@ export default {
     if (!isMobile) {
       this.$router.push('404')
     }
-    this.socket = new WebSocket('ws://192.168.1.51:8010')
+    this.socket = new WebSocket('wss://smartmirrorinterface:8010')
     this.socket.addEventListener('open', () => {
       console.log('connected')
     })

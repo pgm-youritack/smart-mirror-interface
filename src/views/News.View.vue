@@ -51,6 +51,9 @@ export default {
           scrollTop: 0
         })
     }, 1000)
+  },
+  methods: {
+    test() {}
   }
 }
 </script>

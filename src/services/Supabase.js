@@ -1,8 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 import Router from '@/router'
 import { v4 as uuid } from 'uuid'
-console.log(process.env.VUE_APP_SUPABASE_URL)
-console.log(process.env.VUE_APP_SUPABASE_KEY)
 const supabase = createClient(process.env.VUE_APP_SUPABASE_URL, process.env.VUE_APP_SUPABASE_KEY)
 
 const Register = async (form) => {
@@ -21,7 +19,6 @@ const Login = async (form) => {
     console.log(error)
   } else {
     document.cookie = `session =${data.session.access_token}; path=/; expires=${data.session.expires_in}`
-    Router.push('/setup')
     return data.session.access_token
   }
 }
@@ -44,7 +41,8 @@ const insertUpdateUserData = async (form) => {
   const boundGetUserId = getUserId.bind(this)
   const user = await boundGetUserId()
   if (user) {
-    if (supabase.from('UserData').select().eq('user_id', user.id)) {
+    const result = await supabase.from('UserData').select('*').eq('user_id', user.id)
+    if (result.status !== 404) {
       const { error } = await supabase
         .from('UserData')
         .update({
@@ -62,7 +60,8 @@ const insertUpdateUserData = async (form) => {
         displayname: form.displayname,
         hours: form.timezone,
         country_code: form.countryCode,
-        measurements: form.measurement
+        measurements: form.measurement,
+        created_at: new Date().toISOString().toLocaleString('zh-TW')
       })
       if (error) {
         console.log(error)
@@ -72,9 +71,14 @@ const insertUpdateUserData = async (form) => {
 }
 const getData = async () => {
   const boundGetUserId = getUserId.bind(this)
+
   const user = await boundGetUserId()
-  if (user !== null) {
+  console.log(user.id)
+  const result = await supabase.from('UserData').select('*').eq('user_id', user.id)
+  console.log(result)
+  if (result.status !== 404) {
     let { data: UserData } = await supabase.from('UserData').select('*').eq('user_id', user.id)
+    console.log(UserData)
     return {
       displayname: UserData[0].displayname,
       countryCode: UserData[0].country_code,
@@ -99,7 +103,8 @@ const uploadSong = async (file) => {
       await supabase.from('Music').insert({
         user_id: user.id,
         song_name: file.name,
-        file_name: `${fileid}.mp3`
+        file_name: `${fileid}.mp3`,
+        created_at: new Date().toISOString().toLocaleString('zh-TW')
       })
       window.alert('upload successfull')
       return 'upload successful'
@@ -129,17 +134,33 @@ const getTodoItems = async () => {
     return data
   }
 }
-const insertTodoItem = async (form) => {
+const insertTodoItem = async (item) => {
   const boundGetUserId = getUserId.bind(this)
   const user = await boundGetUserId()
   if (user !== null) {
     const { error } = await supabase.from('Todo').insert({
       user_id: user.id,
-      item: form.item
+      item: item,
+      created_at: new Date().toISOString().toLocaleString('zh-TW')
     })
     if (error) {
       console.log(error)
+    } else {
+      window.location.reload()
     }
+  }
+}
+const finishTodoItem = async (id) => {
+  const { error } = await supabase
+    .from('Todo')
+    .update({
+      donecheck: true
+    })
+    .eq('id', id)
+  if (error) {
+    console.log(error)
+  } else {
+    window.location.reload()
   }
 }
 export {
@@ -152,5 +173,6 @@ export {
   getMusic,
   getMusicFile,
   getTodoItems,
-  insertTodoItem
+  insertTodoItem,
+  finishTodoItem
 }

@@ -30,7 +30,7 @@ export default {
     }
   },
   mounted() {
-    this.socket = new WebSocket('ws://192.168.1.51:8010')
+    this.socket = new WebSocket('wss://smartmirrorinterface:8010')
     this.socket.onmessage = (event) => {
       // Check if the received data is a Blob object
       if (event.data instanceof Blob) {

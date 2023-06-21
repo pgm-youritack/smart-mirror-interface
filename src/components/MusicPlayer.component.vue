@@ -29,6 +29,7 @@ import TitleComponent from '@/components/title.Component.vue'
 import { getMusicFile } from '@/services/Supabase'
 import { MusicStatus } from '@/services/VoiceCommands'
 import { Howl } from 'howler'
+import artyom from 'artyom.js'
 import { read } from 'jsmediatags/dist/jsmediatags.min.js'
 import placeholderPicture from '@/assets/images/music.png'
 function arrayBufferToBase64(buffer) {
@@ -40,6 +41,7 @@ function arrayBufferToBase64(buffer) {
   }
   return btoa(binary)
 }
+
 export default {
   components: {
     TitleComponent
@@ -58,16 +60,6 @@ export default {
       title: '',
       Image: null,
       placeholder: placeholderPicture
-    }
-  },
-  computed: {
-    musicStatuswatcher() {
-      return MusicStatus
-    }
-  },
-  watch: {
-    musicStatuswatcher(newvalue) {
-      this.togglePlayback(newvalue)
     }
   },
   async mounted() {
@@ -102,11 +94,32 @@ export default {
         this.Image = await this.getimagefromFile(this.file.publicUrl)
       }
     }
+    const voice = new artyom()
+    voice.addCommands([
+      {
+        indexes: ['play music'],
+        action: () => {
+          this.playAudio()
+        }
+      },
+      {
+        indexes: ['pause music'],
+        action: () => {
+          this.pauseAudio()
+        }
+      }
+    ])
+    voice.initialize({
+      lang: 'en-GB',
+      debug: true,
+      listen: true,
+      speed: 1,
+      mode: 'normal'
+    })
 
     this.$watch('songSelected', async (newSong) => {
       await loadSong(newSong)
     })
-
     // Load the initial song if available
     await loadSong(this.songSelected)
   },
@@ -121,6 +134,16 @@ export default {
         this.playing = true
         this.startSliderUpdateInterval()
       }
+    },
+    playAudio() {
+      this.sound.play()
+      this.playing = true
+      this.startSliderUpdateInterval()
+    },
+    pauseAudio() {
+      this.sound.pause()
+      this.playing = false
+      this.startSliderUpdateInterval()
     },
     seekTo() {
       this.sound.seek(this.currentTime)

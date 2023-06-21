@@ -1,11 +1,11 @@
 <template>
   <TitleComponent title="music" />
   <ul class="scroll-container">
-    <li v-for="song in songs" class="article">
-      {{ song.id }}:
-      <button @click="playSong(song.song_name.replace(/\./g, '$'))" class="article__link">
+    <li v-for="(song, index) in songs" class="article">
+      <span>{{ index + 1 }}:</span>
+      <a @click="playSong(index + 1)" class="article__link">
         {{ song.song_name }}
-      </button>
+      </a>
     </li>
   </ul>
 </template>
@@ -14,6 +14,7 @@
 import anime from 'animejs/lib/anime.es.js'
 import TitleComponent from '@/components/title.Component.vue'
 import eventbus from '@/utils/eventBus'
+import { SelectSong } from '@/services/VoiceCommands'
 import { getMusic } from '@/services/Supabase'
 export default {
   components: {
@@ -25,8 +26,9 @@ export default {
       isSongSelected: false
     }
   },
-  async created() {
+  async mounted() {
     this.songs = await getMusic()
+    SelectSong(this.songs)
     setTimeout(() => {
       const container = document.querySelector('.scroll-container')
       const contentHeight = container.scrollHeight
@@ -46,9 +48,10 @@ export default {
         })
     }, 1000)
   },
+  async created() {},
   methods: {
-    playSong(songUrl) {
-      eventbus.songSelected = songUrl
+    playSong(index) {
+      eventbus.songSelected = this.songs[index - 1].song_name.replace(/\./g, '$')
       this.$router.push('/home')
     }
   }

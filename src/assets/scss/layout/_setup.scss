@@ -9,6 +9,9 @@
     justify-content: space-around;
   }
   .setup__form {
+    .error {
+      color: red;
+    }
     align-items: center;
     display: flex;
     gap: 2rem;
